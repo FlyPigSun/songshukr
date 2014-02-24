@@ -1,0 +1,10 @@
+# Localfiles
+symfony-update-m
+
+# Eclipse
+.buildpath
+.project
+/.settings/
+
+# Mac staff
+.DS_Store
