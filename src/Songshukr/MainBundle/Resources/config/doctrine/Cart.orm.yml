@@ -1,0 +1,35 @@
+Songshukr\MainBundle\Entity\Cart:
+    type: entity
+    table: cart
+    id:
+        cid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        uid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '0'
+        commodities:
+            type: string
+            nullable: false
+            length: 2048
+            fixed: false
+            comment: ''
+            default: '[]'
+        ctime:
+            type: datetime
+            nullable: true
+            comment: ''
+        utime:
+            type: datetime
+            nullable: true
+            comment: ''
+    lifecycleCallbacks: {  }

@@ -1,0 +1,4 @@
+songshukr_main:
+    resource: "@SongshukrMainBundle/Controller/"
+    type:     annotation
+    prefix:   /

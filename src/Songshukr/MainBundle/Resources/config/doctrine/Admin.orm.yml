@@ -1,0 +1,29 @@
+Songshukr\MainBundle\Entity\Admin:
+    type: entity
+    table: admin
+    id:
+        adminId:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: admin_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        password:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: ''
+        ctime:
+            type: datetime
+            nullable: true
+            comment: ''
+        utime:
+            type: datetime
+            nullable: true
+            comment: ''
+    lifecycleCallbacks: {  }

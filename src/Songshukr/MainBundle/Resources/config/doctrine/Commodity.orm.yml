@@ -1,0 +1,58 @@
+Songshukr\MainBundle\Entity\Commodity:
+    type: entity
+    table: commodity
+    id:
+        fid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 128
+            fixed: false
+            comment: ''
+        description:
+            type: string
+            nullable: true
+            length: 4096
+            fixed: false
+            comment: ''
+        price:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+        unit:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '0'
+        ctime:
+            type: datetime
+            nullable: true
+            comment: ''
+        utime:
+            type: datetime
+            nullable: true
+            comment: ''
+        status:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '0'
+        allowance:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '-1'
+    lifecycleCallbacks: {  }

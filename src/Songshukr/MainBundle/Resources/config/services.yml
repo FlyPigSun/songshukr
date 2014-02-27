@@ -1,0 +1,7 @@
+parameters:
+#    songshukr_main.example.class: Songshukr\MainBundle\Example
+
+services:
+#    songshukr_main.example:
+#        class: %songshukr_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,28 @@
+Songshukr\MainBundle\Entity\Attribute:
+    type: entity
+    table: attribute
+    id:
+        aid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 256
+            fixed: false
+            comment: ''
+        ctime:
+            type: datetime
+            nullable: true
+            comment: ''
+        utime:
+            type: datetime
+            nullable: true
+            comment: ''
+    lifecycleCallbacks: {  }

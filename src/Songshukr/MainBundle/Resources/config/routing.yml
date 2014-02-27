@@ -1,0 +1,3 @@
+songshukr_main_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: SongshukrMainBundle:Default:index }
