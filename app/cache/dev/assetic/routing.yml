@@ -2,4 +2,4 @@ _assetic:
     resource: .
     type: assetic
 _app:
-    resource: 'I:/Workspace/songshukr/app/config/routing_dev.yml'
+    resource: 'F:/songshukr/songshukr/app/config/routing_dev.yml'
