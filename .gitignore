@@ -8,3 +8,7 @@ symfony-update-m
 
 # Mac staff
 .DS_Store
+
+# C-tag
+/src/Songshukr/.tags
+/src/Songshukr/.tags_sorted_by_file
