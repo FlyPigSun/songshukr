@@ -1,3 +1,15 @@
+# Symfony
+/web/bundles/
+/app/cache/*
+/app/logs/*
+/vendor/
+/vendor/twig/
+/app/config/parameters.yml
+/app/bootstrap*
+/composer.lock
+/autoload*
+/bin/ 
+
 # Localfiles
 symfony-update-m
 
