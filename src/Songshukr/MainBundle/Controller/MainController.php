@@ -1,5 +1,4 @@
 <?php
-
 namespace Songshukr\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,10 +13,11 @@ class MainController extends Controller
 	/**
      * 首页
      *
-     * @Route("/", name="_index")
+     * @Route("/", name="_")
+     * @Route("/index", name="_index")
      */
     public function indexAction()
     {
-        return $this->render('SongshukrMainBundle:index.html.twig');
+        return $this->render('SongshukrMainBundle::index.html.twig');
     }
 }
