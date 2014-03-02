@@ -2,7 +2,7 @@ Songshukr\MainBundle\Entity\Commodity:
     type: entity
     table: commodity
     id:
-        fid:
+        cid:
             type: integer
             nullable: false
             unsigned: false

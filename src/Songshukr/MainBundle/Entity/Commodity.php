@@ -12,7 +12,7 @@ class Commodity
     /**
      * @var integer
      */
-    private $fid;
+    private $cid;
 
     /**
      * @var string
@@ -56,13 +56,13 @@ class Commodity
 
 
     /**
-     * Get fid
+     * Get cid
      *
      * @return integer 
      */
-    public function getFid()
+    public function getCid()
     {
-        return $this->fid;
+        return $this->cid;
     }
 
     /**

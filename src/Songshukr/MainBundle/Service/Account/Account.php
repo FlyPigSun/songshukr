@@ -18,7 +18,7 @@ use Songshukr\MainBundle\Entity\User;
  * 处理帐户相关的函数
  *
  * @author wanghaojie<haojie0429@126.com>
- * @since 2013-11-18
+ * @since 2014-2-25
  */
 class Account extends Common
 {
