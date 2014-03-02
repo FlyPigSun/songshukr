@@ -17,6 +17,7 @@
         <div class="songshukr-header-title">
             快速注册
         </div>
+        <a class="songshukr-header-btn-left songshukr-main-dark" href="/login">去登录</a>
     </div>
     <div class="songshukr-container">
         <div class="songshukr-input-border">
@@ -25,7 +26,7 @@
         <div class="songshukr-input-border">
             <input class="songshukr-input-big songshukr-display-block" type="password" placeholder="请输入您的密码"/>
         </div>
-        <div class="songshukr-btn-big">注册</div>
+        <div class="songshukr-btn-big songshukr-bg-main-shallow">注册</div>
     </div>
     <div class="sonshukr-footer">
     </div>
@@ -39,6 +40,7 @@
         var password = $('.songshukr-input-big:eq(1)').val();
         if(password == ''){
             alert('您的密码不能为空');
+            return false;
         }
         password = $.md5(password);
         if(phoneNumber == ''||/^\d{11}$/.test(phoneNumber)==false){

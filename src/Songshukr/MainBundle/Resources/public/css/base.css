@@ -13,16 +13,49 @@ body{
 }
 
 /* style */
-.songshukr-header-title{
-	font-size: 20px;
-	font-weight: 900;
-	line-height: 40px;
+.songshukr-bg-main-shallow{
+	background-color: #3399FF;
+}
+.songshukr-bg-main-dark{
+	background-color: #0066CC;
+}
+.songshukr-main-shallow{
+	color: #3399FF;
+}
+.songshukr-main-dark{
+	color: #0066CC;
 }
 .songshukr-display-block{
 	display: block;
 }
 
 /* Component */
+.songshukr-header-title{
+	font-size: 20px;
+	font-weight: 900;
+	line-height: 40px;
+}
+
+.songshukr-header-btn-left{
+	position: absolute;
+	font-size: 20px;
+	left: 10px;
+	top: 10px;
+	font-weight: 900;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.songshukr-header-btn-right{
+	position: absolute;
+	font-size: 20px;
+	right: 10px;
+	top: 10px;
+	font-weight: 900;
+	cursor: pointer;
+	text-decoration: none;
+}
+
 .songshukr-input-border{
 	height: 30px;
 	margin: 8px 0px;
@@ -40,17 +73,14 @@ body{
 
 .songshukr-btn-big{
 	margin: 8px 0px;
-	height: 30px;
-	line-height: 30px;
+	font-size: 18px;
+	height: 40px;
+	line-height: 40px;
 	width: 100%;
-	background-color: #3399FF;
 	color:#fff;
 	cursor: pointer;
 	font-weight: 900;
 	-webkit-user-select:none;
 	-moz-user-select:none;
 	-ms-user-select:none;
-}
-.songshukr-btn-big:active{
-	background-color: #0066CC;
 }

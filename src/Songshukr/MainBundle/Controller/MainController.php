@@ -24,6 +24,16 @@ class MainController extends Controller
     /**
      * 注册页面
      *
+     * @Route("/login", name="_login")
+     */
+    public function loginAction()
+    {
+        return $this->render('SongshukrMainBundle:account:login.html.twig');
+    }
+
+    /**
+     * 注册页面
+     *
      * @Route("/register", name="_register")
      */
     public function registerAction()
