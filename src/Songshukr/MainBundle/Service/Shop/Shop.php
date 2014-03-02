@@ -33,8 +33,19 @@ class Shop extends Common
     {
     	$orderNo = md5(time().rand(0,1000));
     	foreach($cart as $cid=>$number) {
-    		$c = $this->getRepository('SongshukrMainBundle:Commodity');
-    		
+    		$c = $this->getRepository('SongshukrMainBundle:Commodity')->find($cid);
+    		if(!$c) continue;
+    		$price = $c->getPrice();
+    		$o = new \Songshukr\MainBundle\Entity\Order();
+    		$o->setOrderNo($orderNo)
+    			->setCit($cid)
+    			->setNumber($number)
+    			->setPrice($price)
+    			->setStatus(0)
+    			->setCtime(new \DateTime)
+    			->setUtime(new \DateTime);
+    		$this->em->persist($o);
     	}
+    	return array('errcode'=>100, 'data'=>array('orderNo'=>$orderNo));
     }
 }
