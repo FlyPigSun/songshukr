@@ -31,9 +31,9 @@ class AccountController extends Controller
     public function accountLoginSubmitAction()
     {
         $request = $this->get('request');
-        $email = urldecode($request->request->get('email'));
+        $cellphone = urldecode($request->request->get('cellphone'));
         $password = urldecode($request->request->get('password'));
-        $uid = $this->get('common.account')->getUidByEmail($email);
+        $uid = $this->get('common.account')->getUidByCellphone($cellphone);
         if (0 == $uid) {
             return new Response(json_encode(array('errcode'=>113,'data'=>array())));
         }
@@ -99,7 +99,6 @@ class AccountController extends Controller
      * @method string $_POST['password']
      * @method string $__POST['username'] || null
      * @method string $_POST['email'] || null
-     * @method string $__POST['qq'] || null
 	 * @Route("/account/register/submit",name="_account_register_submit")
 	 */
     public function accountRegisterSubmitAction()
@@ -109,9 +108,8 @@ class AccountController extends Controller
         $password = urldecode($request->request->get('password'));
         $username = urldecode($request->request->get('username'));
         $cellphone = urldecode($request->request->get('cellphone'));
-        $qq = urldecode($request->request->get('qq'));
 
-        $result = $this->get('common.account')->register($cellphone, $password, $username, $email, $qq);
+        $result = $this->get('common.account')->register($cellphone, $password, $username, $email);
 
         if(100 == $result['errcode']) {
             $uid = $result['data']['uid'];

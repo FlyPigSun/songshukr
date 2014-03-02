@@ -5,24 +5,19 @@ namespace Songshukr\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CommodityAttribute
+ * Label
  */
-class CommodityAttribute
+class Label
 {
     /**
      * @var integer
      */
-    private $caid;
+    private $lid;
 
     /**
      * @var integer
      */
     private $cid;
-
-    /**
-     * @var integer
-     */
-    private $aid;
 
     /**
      * @var string
@@ -41,20 +36,20 @@ class CommodityAttribute
 
 
     /**
-     * Get caid
+     * Get lid
      *
      * @return integer 
      */
-    public function getCaid()
+    public function getLid()
     {
-        return $this->caid;
+        return $this->lid;
     }
 
     /**
      * Set cid
      *
      * @param integer $cid
-     * @return CommodityAttribute
+     * @return Label
      */
     public function setCid($cid)
     {
@@ -74,33 +69,10 @@ class CommodityAttribute
     }
 
     /**
-     * Set aid
-     *
-     * @param integer $aid
-     * @return CommodityAttribute
-     */
-    public function setAid($aid)
-    {
-        $this->aid = $aid;
-
-        return $this;
-    }
-
-    /**
-     * Get aid
-     *
-     * @return integer 
-     */
-    public function getAid()
-    {
-        return $this->aid;
-    }
-
-    /**
      * Set value
      *
      * @param string $value
-     * @return CommodityAttribute
+     * @return Label
      */
     public function setValue($value)
     {
@@ -123,7 +95,7 @@ class CommodityAttribute
      * Set ctime
      *
      * @param \DateTime $ctime
-     * @return CommodityAttribute
+     * @return Label
      */
     public function setCtime($ctime)
     {
@@ -146,7 +118,7 @@ class CommodityAttribute
      * Set utime
      *
      * @param \DateTime $utime
-     * @return CommodityAttribute
+     * @return Label
      */
     public function setUtime($utime)
     {

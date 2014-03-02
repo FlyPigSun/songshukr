@@ -161,7 +161,7 @@ class Account extends Common
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-2-25
      */
-    public function register($cellphone, $password, $username, $email, $qq)
+    public function register($cellphone, $password, $username, $email)
     {
         if($this->isRegisterCellphone($cellphone)){
             return array('errcode'=>110,'data'=>array());
@@ -172,7 +172,6 @@ class Account extends Common
             ->setPassword(sha1($password))
             ->setEmail($email)
             ->setCellphone($cellphone)
-            ->setQq($qq)
             ->setCtime(new \DateTime)
             ->setUtime(new \DateTime);
 
@@ -354,7 +353,6 @@ class Account extends Common
                     'username'=>$u->getUsername(),
                     'email'=>$u->getEmail(),
                     'cellphone'=>$u->getCellphone(),
-                    'qq'=>$u->getQq(),
                     'avatar'=>$u->getAvatar(),
                     'description'=>$u->getDescription(),
                     'utime'=>$u->getUtime()->format('Y-m-d H:i:s'),
@@ -388,7 +386,7 @@ class Account extends Common
         $offset = $limit * ($page-1);
         $query = $this->em
                     ->createQuery('
-                            SELECT a.uid, a.username, a.email, a.cellphone, a.avatar, a.qq,
+                            SELECT a.uid, a.username, a.email, a.cellphone, a.avatar
                                 a.description, a.ctime, a.utime, a.wechat_id
                             FROM SongshukrMainBundle:User a
                             ORDER BY a.uid DESC'
@@ -458,7 +456,6 @@ class Account extends Common
         $account['weibo_name'] = $u->getWeiboName();
         $account['weibo_url'] = $u->getWeiboUrl();
         $account['description'] = $u->getDescription();
-        $account['qq'] = $u->getQq();
         $account['cellphone'] = $u->getCellphone();
         $account['website'] = $u->getWebsite();
         $account['username'] = $u->getUsername();

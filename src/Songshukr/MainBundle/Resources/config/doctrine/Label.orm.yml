@@ -1,8 +1,8 @@
-Songshukr\MainBundle\Entity\CommodityAttribute:
+Songshukr\MainBundle\Entity\Label:
     type: entity
-    table: commodity_attribute
+    table: label
     id:
-        caid:
+        lid:
             type: integer
             nullable: false
             unsigned: false
@@ -12,11 +12,6 @@ Songshukr\MainBundle\Entity\CommodityAttribute:
                 strategy: IDENTITY
     fields:
         cid:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-        aid:
             type: integer
             nullable: false
             unsigned: false
