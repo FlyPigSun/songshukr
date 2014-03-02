@@ -1,1 +1,72 @@
-aaaaaaaaaa
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>松鼠客-注册</title>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+    <div class="songshukr-header">
+        <div class="songshukr-header-title">
+            快速注册
+        </div>
+    </div>
+    <div class="songshukr-container">
+        <div class="songshukr-input-border">
+            <input class="songshukr-input-big songshukr-display-block" placeholder="请输入您的手机号"/>
+        </div>
+        <div class="songshukr-input-border">
+            <input class="songshukr-input-big songshukr-display-block" type="password" placeholder="请输入您的密码"/>
+        </div>
+        <div class="songshukr-btn-big">注册</div>
+    </div>
+    <div class="sonshukr-footer">
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $(document).delegate('.songshukr-btn-big:eq(0)','click',register);
+    });
+    function register(){
+        var phoneNumber = $('.songshukr-input-big:eq(0)').val();
+        var password = $('.songshukr-input-big:eq(1)').val();
+        if(password == ''){
+            alert('您的密码不能为空');
+        }
+        password = $.md5(password);
+        if(phoneNumber == ''||/^\d{11}$/.test(phoneNumber)==false){
+            alert('手机号输入错误')
+            return false;
+        }else{
+            $.ajax({
+                url : '/account/register/submit',
+                type : 'post',
+                data : {
+                    cellphone : phoneNumber,
+                    password : password
+                },
+                headers:{
+                    'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+                },
+                success : function(responseText){
+                    var res = responseText;
+                    res = $.parseJSON(res);
+                    if(res.errcode == 100){
+                        window.location.href='/index';
+                    }else if(res.errcode == 110){
+                        alert('手机号已经被注册');
+                    }else{
+                        alert('注册失败');
+                    }
+                }
+            });
+        }
+    }
+</script>
