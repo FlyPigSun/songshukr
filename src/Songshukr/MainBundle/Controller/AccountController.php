@@ -95,10 +95,10 @@ class AccountController extends Controller
 	/**
 	 * 注册
 	 * 
-     * @method string $_POST['email']
+     * @method string $__POST['cellphone']
      * @method string $_POST['password']
-     * @method string $__POST['username']
-     * @method string $__POST['cellphone'] || null
+     * @method string $__POST['username'] || null
+     * @method string $_POST['email'] || null
      * @method string $__POST['qq'] || null
 	 * @Route("/account/register/submit",name="_account_register_submit")
 	 */
@@ -111,7 +111,7 @@ class AccountController extends Controller
         $cellphone = urldecode($request->request->get('cellphone'));
         $qq = urldecode($request->request->get('qq'));
 
-        $result = $this->get('common.account')->register($email, $password, $username, $cellphone, $qq);
+        $result = $this->get('common.account')->register($cellphone, $password, $username, $email, $qq);
 
         if(100 == $result['errcode']) {
             $uid = $result['data']['uid'];

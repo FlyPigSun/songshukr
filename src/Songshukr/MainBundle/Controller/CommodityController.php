@@ -71,51 +71,51 @@ class MainController extends Controller
     }
 
     /**
-     * 添加属性
+     * 添加标签
      *
-     * @Route("/attribute/add",name="_attribute_add")
+     * @Route("/label/add/{cid}",name="_label_add")
      */
-    public function attributeAddAction()
+    public function labelAddAction($cid)
     {
         //is admin
         
         $request = $this->get('request');
-        $name = urldecode($request->request->get('name'));
-        if(!$name) {
+        $value = urldecode($request->request->get('value'));
+        if(!$value) {
             return new Response(json_encode(array('errcode'=>101,'data'=>array())));
         }
-        $result = $this->get('common.commodity')->attributeAdd($name);
+        $result = $this->get('common.commodity')->addLabel($cid, $value);
         return new Response(json_encode($result));
     }
 
     /**
-     * 修改属性
+     * 修改标签
      *
-     * @Route("/attribute/edit/{aid}",name="_attribute_edit")
+     * @Route("/label/edit/{lid}",name="_label_edit")
      */
-    public function attributeAddAction($aid)
+    public function labelAddAction($lid)
     {
         //is admin
         
         $request = $this->get('request');
-        $name = urldecode($request->request->get('name'));
-        if(!$name) {
+        $value = urldecode($request->request->get('value'));
+        if(!$value) {
             return new Response(json_encode(array('errcode'=>101,'data'=>array())));
         }
-        $result = $this->get('common.commodity')->attributeEdit($aid, $name);
+        $result = $this->get('common.commodity')->editLabel($lid, $value);
         return new Response(json_encode($result));
     }
 
     /**
-     * 添加商品与属性关联
+     * 删除标签
      *
-     * @Route("/commodity/attribute/add",name="_commodity_attribute_add")
+     * @Route("/label/remove/{lid}",name="_label_remove")
      */
-    public function commodityAttributeAddAction()
+    public function labelRemoveAction($lid)
     {
         //is admin
         
-        $request = $this->get('request');
-        
+        $result = $this->get('common.commodity')->removeLabel($lid);
+        return new Response(json_encode($result));
     }
 }

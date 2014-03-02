@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Songshukr\MainBundle\Service\Common;
-use Songshukr\MainBundle\Entity\User;
 
 /**
  * 处理商品相关的函数
@@ -168,42 +167,60 @@ class Commodity extends Common
         if(!$c) {
             return array('errcode'=>111, 'data'=>array());
         }
-        $this->em->remove();
+        $this->em->remove($c);
         return array('errcode'=>100,'data'=>array());
     }
 
     /**
-     * 添加属性
+     * 添加标签
      * 
-     * @param string $name
+     * @param string $value
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-3-1
      */
-    public function attributeAdd($name)
+    public function addLabel($cid, $value)
     {
-        $a = new \Songshukr\MainBundle\Entity\Attribute();
-        $a->setName($name)->setCtime(new \DateTime)->setUtime(new \DateTime);
-        $this->em->persist($a);
+        $l = new \Songshukr\MainBundle\Entity\Label();
+        $l->setCid($cid)->setValue($value)->setCtime(new \DateTime)->setUtime(new \DateTime);
+        $this->em->persist($l);
         $this->em->flush();
-        return array('errcode'=>100,'data'=>array('aid'=>$a->getAid()));
+        return array('errcode'=>100,'data'=>array('lid'=>$l->getLid()));
     }
 
     /**
-     * 修改属性
+     * 修改标签
      *
-     * @param int $aid
-     * @param string $name
+     * @param int $lid
+     * @param string $value
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-3-1
      */
-    public function attributeEdit($aid, $name)
+    public function editLabel($lid, $value)
     {
-        $a = $this->em->getRepository('SongshukrMainBundle:Attribute')->find($aid);
-        if(!$a) {
+        $l = $this->em->getRepository('SongshukrMainBundle:Label')->find($lid);
+        if(!$l) {
             return array('errcode'=>111,'data'=>array());
         }
-        $a->setName($name)->setUtime(new \DateTime);
+        $l->setValue($value)->setUtime(new \DateTime);
         $this->em->flush();
+        return array('errcode'=>100,'data'=>array());
+    }
+
+    /**
+     * 删除标签
+     *
+     * @param int $lid
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-2
+     */
+    public function removeLabel($lid)
+    {
+
+        $l = $this->em->getRepository('SongshukrMainBundle:Label')->find($lid);
+        if(!$l) {
+            return array('errcode'=>111,'data'=>array());
+        }
+        $this->em->remove($l);
         return array('errcode'=>100,'data'=>array());
     }
 }

@@ -161,9 +161,9 @@ class Account extends Common
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-2-25
      */
-    public function register($email,$password,$username, $cellphone, $qq)
+    public function register($cellphone, $password, $username, $email, $qq)
     {
-        if($this->isRegisterEmail($email)){
+        if($this->isRegisterCellphone($cellphone)){
             return array('errcode'=>110,'data'=>array());
         }
 
