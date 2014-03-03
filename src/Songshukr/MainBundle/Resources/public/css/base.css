@@ -11,7 +11,9 @@ body{
 .songshukr-container{
 	margin: 0px 10px;
 }
-
+.clear{
+	clear: both;
+}
 /* style */
 .songshukr-bg-main-shallow{
 	background-color: #3399FF;
@@ -29,13 +31,50 @@ body{
 	display: block;
 }
 
-/* Component */
+/*Custom-Comonent*/
+.songshukr-production-item{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+	color: #777;
+}
+.songshukr-production-pic{
+	width: 80px;
+	height: 80px;
+	float: left;
+}
+.songshukr-production-name{
+	margin: 10px 10px;
+}
+.songshukr-production-price{
+	margin: 10px;
+}
+.songshukr-production-plus{
+	display: inline-block;
+	font-size: 30px;
+}
+.songshukr-production-minus{
+	display: inline-block;
+	font-size: 30px;
+}
+.songshukr-production-shopping-btn{
+	position: absolute;
+	right: 100px;
+	bottom: 5px;
+}
+.songshukr-production-cartbtn{
+	position: absolute;
+	right: 0px;
+	bottom: 5px;
+}
+
+/* System-Component */
 .songshukr-header-title{
 	font-size: 20px;
 	font-weight: 900;
 	line-height: 40px;
 }
-
 .songshukr-header-btn-left{
 	position: absolute;
 	font-size: 20px;
@@ -45,7 +84,6 @@ body{
 	cursor: pointer;
 	text-decoration: none;
 }
-
 .songshukr-header-btn-right{
 	position: absolute;
 	font-size: 20px;
@@ -62,6 +100,15 @@ body{
 	border:1px solid #CCC;
 	overflow: hidden;
 }
+.songshukr-input-small{
+	font-size: 16px;
+	padding: 0px 10px;
+	width: 20px;
+	height: 30px;
+	border: 1px solid #CCC;
+	outline:none;
+	vertical-align: top;
+}
 .songshukr-input-big{
 	font-size: 16px;
 	padding: 0px 10px;
@@ -71,6 +118,17 @@ body{
 	outline:none;
 }
 
+.songshukr-btn-small{
+	font-size: 14px;
+	padding: 5px;
+	line-height: 20px;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 900;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
 .songshukr-btn-big{
 	margin: 8px 0px;
 	font-size: 18px;
