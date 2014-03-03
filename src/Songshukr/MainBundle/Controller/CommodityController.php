@@ -18,8 +18,8 @@ class MainController extends Controller
     public function commodityListAction()
     {
         $request = $this->get('request');
-        $page = $request->query->get('page') ? $request->query->get('page') : 0;
-        $limit = $request->query->get('limit') ? $request->query->get('limit') : 0;
+        $page = $request->query->get('page') ? $request->query->get('page') : 1;
+        $limit = $request->query->get('limit') ? $request->query->get('limit') : 10;
         $result = $this->get('common.commodity')->commodityList($page, $limit);
         return new Response(json_encode($result));
     }
