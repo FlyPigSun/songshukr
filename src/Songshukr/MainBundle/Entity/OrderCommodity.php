@@ -5,14 +5,14 @@ namespace Songshukr\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Order
+ * OrderCommodity
  */
-class Order
+class OrderCommodity
 {
     /**
      * @var integer
      */
-    private $oid;
+    private $ocid;
 
     /**
      * @var string
@@ -25,6 +25,11 @@ class Order
     private $cid;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @var integer
      */
     private $number;
@@ -33,11 +38,6 @@ class Order
      * @var float
      */
     private $price;
-
-    /**
-     * @var integer
-     */
-    private $status;
 
     /**
      * @var \DateTime
@@ -51,20 +51,20 @@ class Order
 
 
     /**
-     * Get oid
+     * Get ocid
      *
      * @return integer 
      */
-    public function getOid()
+    public function getOcid()
     {
-        return $this->oid;
+        return $this->ocid;
     }
 
     /**
      * Set orderNo
      *
      * @param string $orderNo
-     * @return Order
+     * @return OrderCommodity
      */
     public function setOrderNo($orderNo)
     {
@@ -87,7 +87,7 @@ class Order
      * Set cid
      *
      * @param integer $cid
-     * @return Order
+     * @return OrderCommodity
      */
     public function setCid($cid)
     {
@@ -107,10 +107,33 @@ class Order
     }
 
     /**
+     * Set name
+     *
+     * @param string $name
+     * @return OrderCommodity
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set number
      *
      * @param integer $number
-     * @return Order
+     * @return OrderCommodity
      */
     public function setNumber($number)
     {
@@ -133,7 +156,7 @@ class Order
      * Set price
      *
      * @param float $price
-     * @return Order
+     * @return OrderCommodity
      */
     public function setPrice($price)
     {
@@ -153,33 +176,10 @@ class Order
     }
 
     /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Order
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
      * Set ctime
      *
      * @param \DateTime $ctime
-     * @return Order
+     * @return OrderCommodity
      */
     public function setCtime($ctime)
     {
@@ -202,7 +202,7 @@ class Order
      * Set utime
      *
      * @param \DateTime $utime
-     * @return Order
+     * @return OrderCommodity
      */
     public function setUtime($utime)
     {

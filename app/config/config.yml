@@ -33,6 +33,14 @@ services:
         class: Songshukr\MainBundle\Service\Account\Account
         arguments: [@doctrine.orm.entity_manager,@service_container,@logger]
 
+    common.commodity:
+        class: Songshukr\MainBundle\Service\Commodity\Commodity
+        arguments: [@doctrine.orm.entity_manager,@service_container,@logger]
+
+    common.shop:
+        class: Songshukr\MainBundle\Service\Shop\Shop
+        arguments: [@doctrine.orm.entity_manager,@service_container,@logger]
+
     common.email:
         class: Songshukr\MainBundle\Service\Email\Email
         arguments: [@doctrine.orm.entity_manager,@service_container,@templating,@logger]

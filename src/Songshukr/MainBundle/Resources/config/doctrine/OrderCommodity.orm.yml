@@ -1,0 +1,52 @@
+Songshukr\MainBundle\Entity\OrderCommodity:
+    type: entity
+    table: order_commodity
+    id:
+        ocid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        orderNo:
+            type: string
+            nullable: false
+            length: 64
+            fixed: false
+            comment: ''
+            column: order_no
+        cid:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        name:
+            type: string
+            nullable: false
+            length: 256
+            fixed: false
+            comment: ''
+        number:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            default: '1'
+        price:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+        ctime:
+            type: datetime
+            nullable: true
+            comment: ''
+        utime:
+            type: datetime
+            nullable: true
+            comment: ''
+    lifecycleCallbacks: {  }
