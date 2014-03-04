@@ -126,5 +126,6 @@ class ShopController extends Controller
         $status = json_decode($request->request->get('status'));
         if(!$status) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
         $result = $this->get('common.shop')->orderList($status);
+        return new Response(json_encode($result));
     }
 }

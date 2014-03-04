@@ -146,7 +146,7 @@ class Shop extends Common
         $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('status'=>$status));
         $result = array();
         foreach($os as $o) {
-            $ocs = $this->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$o->getOrderNo()));
+            $ocs = $this->em->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$o->getOrderNo()));
             $items = array();
             foreach($ocs as $oc) {
                 $items[] = array(
@@ -158,10 +158,10 @@ class Shop extends Common
                     );
             }
             $result[] = array(
-                    'orderNo'=>$o->getOrderNo()),
+                    'orderNo'=>$o->getOrderNo(),
                     'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
                     'status'=>$o->getStatus(),
-                    'commodities'=>$items;
+                    'commodities'=>$items,
                 );
         }
         return $result;
