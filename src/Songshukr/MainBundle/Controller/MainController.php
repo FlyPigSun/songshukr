@@ -22,7 +22,7 @@ class MainController extends Controller
     }
 
     /**
-     * 注册页面
+     * 登录页面
      *
      * @Route("/login", name="_login")
      */
@@ -39,5 +39,15 @@ class MainController extends Controller
     public function registerAction()
     {
         return $this->render('SongshukrMainBundle:account:register.html.twig');
+    }
+
+    /**
+     * 购物车页面
+     *
+     * @Route("/cart", name="_cart")
+     */
+    public function cartAction()
+    {
+        return $this->render('SongshukrMainBundle:shop:cart.html.twig');
     }
 }

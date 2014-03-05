@@ -13,7 +13,7 @@ class ShopController extends Controller
     /**
      * 购物车
      *
-     * @Route("/cart")
+     * @Route("/cart/list",name="_cart_list")
      */
     public function cartAction()
     {
