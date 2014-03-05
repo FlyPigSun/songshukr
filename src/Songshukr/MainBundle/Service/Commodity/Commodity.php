@@ -48,8 +48,8 @@ class Commodity extends Common
             $item['ctime'] = $item['ctime']->format('Y-m-d H-i-m');
             $item['utime'] = $item['utime']->format('Y-m-d H-i-m');
             $cid = $item['cid'];
-            $attributes = $this->__getAttributesByCid($cid);
-            $item['attributes'] = $attributes;
+            $labels = $this->__getLabelsByCid($cid);
+            $item['labels'] = $labels;
             $result[] = $item;
         }
         return array('errcode'=>100,'data'=>$result);
@@ -62,15 +62,15 @@ class Commodity extends Common
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-2-28
      */
-    private function __getAttributesByCid($cid)
+    private function __getLabelsByCid($cid)
     {
-        $cas = $this->em->getRepository('SongshukrMainBundle:CommodityAttribute')
+        $ls = $this->em->getRepository('SongshukrMainBundle:Label')
                 ->findBy(array('cid'=>$cid));
-        $attributes = array();
-        foreach($cas as $ca) {
-            $attributes[$ca->getName()] = $ca->getValue();
+        $labels = array();
+        foreach($ls as $s) {
+            $labels[] = $l->getValue();
         }
-        return $attributes;
+        return $labels;
     }
 
     /**
@@ -98,8 +98,8 @@ class Commodity extends Common
         $item['ctime'] = $item['ctime']->format('Y-m-d H-i-m');
         $item['utime'] = $item['utime']->format('Y-m-d H-i-m');
         $cid = $item['cid'];
-        $attributes = $this->__getAttributesByCid($cid);
-        $item['attributes'] = $attributes;
+        $labels = $this->__getLabelsByCid($cid);
+        $item['labels'] = $labels;
         return array('errcode'=>100,'data'=>$item);
     }
 
