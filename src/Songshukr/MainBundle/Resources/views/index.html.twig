@@ -27,9 +27,10 @@
 				<div class="songshukr-production-price">15元/斤</div>
 			</div>
 			<div style="float:right;margin-top:10px;">
-				<div class="songshukr-production-plus">+</div>
-				<input class="songshukr-input-small" value="1" />
-				<div class="songshukr-production-minus">-</div>
+				<div class="songshukr-production-plus songshukr-production-numcontroll">+</div>
+				<input class="songshukr-input-small songshukr-production-num" value="1" 
+					style="text-align:center" />
+				<div class="songshukr-production-minus songshukr-production-numcontroll">-</div>
 			</div>
 			<div class="songshukr-btn-small songshukr-production-shopping-btn songshukr-bg-main-shallow">立即购买</div>
 			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
@@ -38,4 +39,28 @@
     </div>
 </body>
 <script>
+	$(document).ready(function(){
+		$(document).delegate('.songshukr-production-numcontroll','click',changeNum);
+	});
+	function changeNum(){
+		var btn = $.trim($(this).html());
+		switch(btn){
+			case '+':
+				if($('.songshukr-production-num').val()>98){
+					alert('购买数量不能大于99');
+					return false;
+				}else{
+					$('.songshukr-production-num').val(
+						Number($('.songshukr-production-num').val())+1);
+				}
+				break;
+			case '-':
+				if($('.songshukr-production-num').val()<1){
+					alert('您最少要购买一件产品哦');
+				}else{
+					$('.songshukr-production-num').val($('.songshukr-production-num').val()-1);
+				}
+				break;
+		}
+	}
 </script>
