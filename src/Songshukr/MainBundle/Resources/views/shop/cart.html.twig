@@ -1,1 +1,58 @@
-aaaaaaaaaa
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>松鼠客-购物车</title>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+    	.songshukr-production-remove-ico{
+    		position: absolute;
+    		top:12px;
+    		right: 10px;
+    	}
+    </style>
+</head>
+<body>
+	<div class="songshukr-header">
+		<a class="songshukr-header-btn-left songshukr-main-dark" href="/index">去选购</a>
+        <div class="songshukr-header-title">
+            我的购物车
+        </div>
+        <a class="songshukr-header-btn-right songshukr-main-dark" href="">去结算</a>
+    </div>
+    <div class="songshukr-container">
+		<div class="songshukr-production-item">
+			<img class="songshukr-production-pic"/>
+			<div style="float:left;">
+				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
+				<div class="songshukr-production-price">
+					<span class="songshukr-production-original-price">30元/斤</span>
+					15元/斤
+				</div>
+			</div>
+			<div class="songshukr-production-numarea">
+				<span style="line-height: 30px;">数量：</span>
+				<input class="songshukr-input-small songshukr-production-num" value="1" 
+					style="text-align:center" />
+			</div>
+			<div class="songshukr-production-remove-ico">
+				<img src="{{ asset('/bundles/songshukrmain/images/fork.png') }}"/>
+			</div>
+			<div class="clear"></div>
+		</div>
+    </div>
+</body>
+<script>
+	$(document).ready(function(){
+		$(document).delegate('.songshukr-production-remove-ico','click',removeProduction);
+	});
+	function removeProduction(){
+		if(confirm("确定从购物车中删除此商品")){
+    		$(this).parent().remove();
+   		}
+	}
+</script>
