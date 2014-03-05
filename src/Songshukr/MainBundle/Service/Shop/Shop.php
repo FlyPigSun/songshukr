@@ -32,20 +32,138 @@ class Shop extends Common
     public function createOrder($uid, $cart)
     {
     	$orderNo = md5(time().rand(0,1000));
+        $o = new \Songshukr\MainBundle\Entity\Order();
+        $o->setUid($uid)
+            ->setOrderNo($orderNo)
+            ->setStatus(0)
+            ->setCtime(new \DateTime)
+            ->setUtime(new \DateTime);
+        $this->em->persist($o);
+        $this->em->flush();
     	foreach($cart as $cid=>$number) {
     		$c = $this->getRepository('SongshukrMainBundle:Commodity')->find($cid);
     		if(!$c) continue;
     		$price = $c->getPrice();
-    		$o = new \Songshukr\MainBundle\Entity\Order();
-    		$o->setOrderNo($orderNo)
-    			->setCit($cid)
+            $name = $c->getName();
+    		$oc = new \Songshukr\MainBundle\Entity\OrderCommodity();
+    		$oc->setOrderNo($orderNo)
+                ->setCid($cid)
+                ->setName($name)
     			->setNumber($number)
     			->setPrice($price)
-    			->setStatus(0)
     			->setCtime(new \DateTime)
     			->setUtime(new \DateTime);
-    		$this->em->persist($o);
+    		$this->em->persist($oc);
+            $this->em->flush();
     	}
+
     	return array('errcode'=>100, 'data'=>array('orderNo'=>$orderNo));
+    }
+
+    /**
+     * 确认订单
+     * 
+     * @param string $orderNo
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-4
+     */
+    public function comfirmOrder($orderNo)
+    {
+        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('orderNo'=>$orderNo));
+        if(!$o) {
+            return array('errcode'=>111, 'data'=>array());
+        }
+        $o->setStatus(1)->setUtime(new \DateTime);
+        $this->em->flush();
+        return array('errcode'=>100, 'data'=>array());
+    }
+
+    /**
+     * 订单配送中
+     * 
+     * @param string $orderNo
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-4
+     */
+    public function sendingOrder($orderNo)
+    {
+        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('orderNo'=>$orderNo));
+        if(!$o) {
+            return array('errcode'=>111, 'data'=>array());
+        }
+        $o->setStatus(2)->setUtime(new \DateTime);
+        $this->em->flush();
+        return array('errcode'=>100, 'data'=>array());
+    }
+
+    /**
+     * 结束订单
+     * 
+     * @param int $uid
+     * @param string $orderNo
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-4
+     */
+    public function finishOrder($uid, $orderNo)
+    {
+        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
+        if(!$o) {
+            return array('errcode'=>111, 'data'=>array());
+        }
+        $o->setStatus(3)->setUtime(new \DateTime);
+        $this->em->flush();
+        return array('errcode'=>100, 'data'=>array());
+    }
+
+    /**
+     * 取消订单
+     * 
+     * @param int $uid
+     * @param string $orderNo
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-4
+     */
+    public function cancelOrder($uid, $orderNo)
+    {
+        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
+        if(!$o) {
+            return array('errcode'=>111, 'data'=>array());
+        }
+        $o->setStatus(-1)->setUtime(new \DateTime);
+        $this->em->flush();
+        return array('errcode'=>100, 'data'=>array());
+    }
+
+    /**
+     * 获取订单列表
+     * 
+     * @param array $status
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-4
+     */
+    public function orderList($status)
+    {
+        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('status'=>$status));
+        $result = array();
+        foreach($os as $o) {
+            $ocs = $this->em->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$o->getOrderNo()));
+            $items = array();
+            foreach($ocs as $oc) {
+                $items[] = array(
+                        'cid'=>$oc->getCid(),
+                        'name'=>$oc->getName(),
+                        'number'=>$oc->getNumber(),
+                        'price'=>$oc->getPrice(),
+                        'ctime'=>$oc->getCtime()->format('Y-m-d H:i:s'),
+                    );
+            }
+            $result[] = array(
+                    'orderNo'=>$o->getOrderNo(),
+                    'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
+                    'status'=>$o->getStatus(),
+                    'commodities'=>$items,
+                );
+        }
+        return $result;
     }
 }

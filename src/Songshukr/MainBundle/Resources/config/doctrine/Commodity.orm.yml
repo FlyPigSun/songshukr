@@ -1,8 +1,8 @@
-Songshukr\MainBundle\Entity\Order:
+Songshukr\MainBundle\Entity\Commodity:
     type: entity
-    table: order
+    table: commodity
     id:
-        oid:
+        cid:
             type: integer
             nullable: false
             unsigned: false
@@ -11,24 +11,23 @@ Songshukr\MainBundle\Entity\Order:
             generator:
                 strategy: IDENTITY
     fields:
-        orderNo:
+        name:
             type: string
             nullable: false
-            length: 32
+            length: 128
             fixed: false
             comment: ''
-            default: ''
-            column: order_no
-        cid:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            default: '0'
-        number:
-            type: integer
+        description:
+            type: string
             nullable: true
-            unsigned: false
+            length: 16384
+            fixed: false
+            comment: ''
+        logo:
+            type: string
+            nullable: true
+            length: 256
+            fixed: false
             comment: ''
         price:
             type: float
@@ -36,18 +35,30 @@ Songshukr\MainBundle\Entity\Order:
             precision: 10
             scale: 0
             comment: ''
+        unit:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: ''
             default: '0'
         status:
             type: integer
-            nullable: false
+            nullable: true
             unsigned: false
             comment: ''
             default: '0'
-        ctime:
+        allowance:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            default: '0'
+        utime:
             type: datetime
             nullable: true
             comment: ''
-        utime:
+        ctime:
             type: datetime
             nullable: true
             comment: ''

@@ -46,7 +46,7 @@ class MainController extends Controller
         
         $request = $this->get('request');
         $config = array();
-        $options = array('name', 'description', 'price', 'unit', 'status', 'allowance');
+        $options = array('name', 'description', 'price', 'unit', 'status', 'allowance', 'logo');
         foreach($options as $option) {
             if($request->request->get($option) !== null) {
                 $config[$option] = urldecode($request->request->get($option));

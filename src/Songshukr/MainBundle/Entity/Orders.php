@@ -5,24 +5,29 @@ namespace Songshukr\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Admin
+ * Orders
  */
-class Admin
+class Orders
 {
     /**
      * @var integer
      */
-    private $adminId;
+    private $oid;
+
+    /**
+     * @var integer
+     */
+    private $uid;
 
     /**
      * @var string
      */
-    private $name;
+    private $orderNo;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $password;
+    private $status;
 
     /**
      * @var \DateTime
@@ -36,66 +41,89 @@ class Admin
 
 
     /**
-     * Get adminId
+     * Get oid
      *
      * @return integer 
      */
-    public function getAdminId()
+    public function getOid()
     {
-        return $this->adminId;
+        return $this->oid;
     }
 
     /**
-     * Set name
+     * Set uid
      *
-     * @param string $name
-     * @return Admin
+     * @param integer $uid
+     * @return Orders
      */
-    public function setName($name)
+    public function setUid($uid)
     {
-        $this->name = $name;
+        $this->uid = $uid;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get uid
      *
-     * @return string 
+     * @return integer 
      */
-    public function getName()
+    public function getUid()
     {
-        return $this->name;
+        return $this->uid;
     }
 
     /**
-     * Set password
+     * Set orderNo
      *
-     * @param string $password
-     * @return Admin
+     * @param string $orderNo
+     * @return Orders
      */
-    public function setPassword($password)
+    public function setOrderNo($orderNo)
     {
-        $this->password = $password;
+        $this->orderNo = $orderNo;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get orderNo
      *
      * @return string 
      */
-    public function getPassword()
+    public function getOrderNo()
     {
-        return $this->password;
+        return $this->orderNo;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Orders
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
      * Set ctime
      *
      * @param \DateTime $ctime
-     * @return Admin
+     * @return Orders
      */
     public function setCtime($ctime)
     {
@@ -118,7 +146,7 @@ class Admin
      * Set utime
      *
      * @param \DateTime $utime
-     * @return Admin
+     * @return Orders
      */
     public function setUtime($utime)
     {

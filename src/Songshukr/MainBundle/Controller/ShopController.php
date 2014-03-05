@@ -37,11 +37,95 @@ class ShopController extends Controller
     {
         $session = $this->get('session');
         $uid = $session->get('user_id') ? $session->get('user_id') : 0;
+        if($uid == 0) return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
         $cart = json_decode($session->get('sessioin'));
         if(!$cart) {
             return new Response(json_encode(array('errcode'=>101,'data'=>array())));
         }
         $result = $this->get('common.shop')->createOrder($uid, $cart);
-        return new Response($result);
+        return new Response(json_encode($result));
+    }
+
+    /**
+     * 订单确认
+     * 
+     * @Route("/order/confirm",name="_order_confirm")
+     */
+    public function orderConfirmAction()
+    {
+        //is admin
+
+        $request = $this->get('request');
+        $orderNo = $request->request->get('orderNo');
+        if(!$orderNo) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
+        $reuslt = $this->get('common.shop')->comfirmOrder($orderNo);
+        return new Response(json_encode($result));
+    }
+
+    /**
+     * 订单配送中
+     * 
+     * @Route("/order/sending",name="_order_sending")
+     */
+    public function orderSendingAction()
+    {
+        //is admin
+
+        $request = $this->get('request');
+        $orderNo = $request->request->get('orderNo');
+        if(!$orderNo) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
+        $reuslt = $this->get('common.shop')->sendingOrder($orderNo);
+        return new Response(json_encode($result));
+    }
+
+    /**
+     * 订单完成
+     * 
+     * @Route("/order/finish",name="_order_finish")
+     */
+    public function orderFinishAction()
+    {
+        $session = $this->get('session');
+        $uid = $session->get('user_id') ? $session->get('user_id') : 0;
+        if($uid == 0) return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
+        $request = $this->get('request');
+        $orderNo = $request->request->get('orderNo');
+        if(!$orderNo) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
+        $result = $this->get('common.shop')->finishOrder($uid, $orderNo);
+        return new Response(json_encode($result));
+    }
+
+    /**
+     * 订单取消
+     * 
+     * @Route("/order/cancel",name="_order_cancel")
+     */
+    public function orderCancelAction()
+    {
+        $session = $this->get('session');
+        $uid = $session->get('user_id') ? $session->get('user_id') : 0;
+        if($uid == 0) return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
+        $request = $this->get('request');
+        $orderNo = $request->request->get('orderNo');
+        if(!$orderNo) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
+        $result = $this->get('common.shop')->cancelOrder($uid, $orderNo);
+        return new Response(json_encode($result));
+    }
+
+    /**
+     * 获取订单列表
+     * 
+     * @method array $_POST['status']
+     * @Route("/order/list",name="_order_list")
+     */
+    public function orderListAction()
+    {
+        //is admin
+
+        $request = $this->get('request');
+        $status = json_decode($request->request->get('status'));
+        if(!$status) return new Response(json_encode(array('errcode'=>101, 'data'=>array())));
+        $result = $this->get('common.shop')->orderList($status);
+        return new Response(json_encode($result));
     }
 }

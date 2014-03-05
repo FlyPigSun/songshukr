@@ -12,6 +12,12 @@ Songshukr\MainBundle\Entity\Admin:
             generator:
                 strategy: IDENTITY
     fields:
+        name:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: ''
         password:
             type: string
             nullable: false

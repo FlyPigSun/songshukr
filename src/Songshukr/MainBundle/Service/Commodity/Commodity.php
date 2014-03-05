@@ -34,7 +34,7 @@ class Commodity extends Common
         $offset = ($page - 1) * $limit;
         $query = $this->em->createQuery('
                         SELECT a.cid, a.name, a.description, a.price, a.unit, 
-                                a.ctime, a.utime, a.status, a.allowance
+                                a.ctime, a.utime, a.status, a.allowance, a.logo
                         FROM SongshukrMainBundle:Commodity a'
                     )->setMaxResults($limit)
                     ->setFirstResult($offset);
@@ -84,7 +84,7 @@ class Commodity extends Common
     {
         $query = $this->em->createQuery('
                         SELECT a.cid, a.name, a.description, a.price, a.unit, 
-                                a.ctime, a.utime, a.status, a.allowance
+                                a.ctime, a.utime, a.status, a.allowance, a.logo
                         FROM SongshukrMainBundle:Commodity a
                         WHERE a.cid=:cid'
                     )->setParameters(array(
@@ -143,6 +143,9 @@ class Commodity extends Common
                 break;
             case 'allowance':
                 $c->setAllowance($item);
+                break;
+            case 'logo':
+                $c->setLogo($item);
                 break;
             default:
                 break;
