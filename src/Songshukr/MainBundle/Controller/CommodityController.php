@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Cookie;
 
-class MainController extends Controller
+class CommodityController extends Controller
 {
 	/**
      * 获取商品列表
@@ -62,7 +62,7 @@ class MainController extends Controller
      *
      * @Route("/commodity/remove/{cid}",name="_commodity_remove")
      */
-    public function commoditySetActoin($cid)
+    public function commodityRemoveActoin($cid)
     {
         //is admin
         
@@ -93,7 +93,7 @@ class MainController extends Controller
      *
      * @Route("/label/edit/{lid}",name="_label_edit")
      */
-    public function labelAddAction($lid)
+    public function labelEditAction($lid)
     {
         //is admin
         

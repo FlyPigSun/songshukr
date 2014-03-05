@@ -65,7 +65,7 @@ class Commodity extends Common
     private function __getAttributesByCid($cid)
     {
         $cas = $this->em->getRepository('SongshukrMainBundle:CommodityAttribute')
-                ->findBy('cid'=>$cid);
+                ->findBy(array('cid'=>$cid));
         $attributes = array();
         foreach($cas as $ca) {
             $attributes[$ca->getName()] = $ca->getValue();

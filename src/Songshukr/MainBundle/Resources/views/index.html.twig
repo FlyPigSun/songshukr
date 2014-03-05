@@ -17,21 +17,23 @@
         <div class="songshukr-header-title">
             今日鲜果快递
         </div>
-        <a class="songshukr-header-btn-right songshukr-main-dark" href="/cart">购物车</a>
+        <a class="songshukr-header-btn-right songshukr-main-dark" href="/cart">去购物车</a>
     </div>
     <div class="songshukr-container">
 		<div class="songshukr-production-item">
 			<img class="songshukr-production-pic"/>
-			<div style="float:left;margin-top:5px;">
+			<div style="float:left;">
 				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
 				<div class="songshukr-production-price">15元/斤</div>
 			</div>
+			<!-- 
 			<div style="float:right;margin-top:10px;">
 				<div class="songshukr-production-plus songshukr-production-numcontroll">+</div>
 				<input class="songshukr-input-small songshukr-production-num" value="1" 
 					style="text-align:center" />
 				<div class="songshukr-production-minus songshukr-production-numcontroll">-</div>
 			</div>
+			 -->
 			<div class="songshukr-btn-small songshukr-production-shopping-btn songshukr-bg-main-shallow">立即购买</div>
 			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
 			<div class="clear"></div>
@@ -41,6 +43,7 @@
 <script>
 	$(document).ready(function(){
 		$(document).delegate('.songshukr-production-numcontroll','click',changeNum);
+		getProductionList();
 	});
 	function changeNum(){
 		var btn = $.trim($(this).html());
@@ -62,5 +65,22 @@
 				}
 				break;
 		}
+	}
+	function getProductionList(){
+		$.ajax({
+            url : '/commodity/list',
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                var data = res.data
+                $.each(data,function(key,item){
+                	alert(item);
+                });
+            }
+        });
 	}
 </script>
