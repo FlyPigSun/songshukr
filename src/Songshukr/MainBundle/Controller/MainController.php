@@ -50,4 +50,14 @@ class MainController extends Controller
     {
         return $this->render('SongshukrMainBundle:shop:cart.html.twig');
     }
+
+    /**
+     * 商品詳情頁面
+     * 
+     * @Route("/commodity/detail/{cid}", name="_commodity_detail")
+     */
+    public function commodityDetailAction($cid)
+    {
+        return $this->render('SongshukrMainBundle:shop:detail.html.twig');
+    }
 }

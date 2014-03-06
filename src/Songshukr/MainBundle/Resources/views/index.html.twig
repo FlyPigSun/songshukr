@@ -7,6 +7,7 @@
     <title>松鼠客</title>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
     <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
     <style type="text/css">
     </style>
@@ -20,140 +21,31 @@
         <a class="songshukr-header-btn-right songshukr-main-dark" href="/cart">去购物车</a>
     </div>
     <div class="songshukr-container">
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
-		<div class="songshukr-production-item">
-			<img class="songshukr-production-pic"/>
-			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
-				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
-				</div>
-			</div>
-			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车</div>
-			<div class="clear"></div>
-		</div>
+		
     </div>
 </body>
+<script id="songshukr-production-item-template" type="text/html">
+	<a href="/commodity/detail/{{ '{{' }} cid {{ '}}' }}">
+		<div class="songshukr-production-item">
+			<div class="songshukr-production-cid songshukr-hide">{{ '{{' }} cid {{ '}}' }}</div>
+			<img class="songshukr-production-pic"/>
+			<div style="float:left;">
+				<div class="songshukr-production-name">
+					{{ '{{' }} name {{ '}}' }}
+				</div>
+				<div class="songshukr-production-price">
+					<span class="songshukr-production-original-price">
+						30元/斤
+					</span>
+					{{ '{{' }} price {{ '}}' }}元/斤
+				</div>
+			</div>
+			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车
+			</div>
+			<div class="clear"></div>
+		</div>
+	</a>
+</script>
 <script>
 	$(document).ready(function(){
 		$(document).delegate('.songshukr-production-cartbtn','click',addCart);
@@ -171,7 +63,9 @@
                 res = $.parseJSON(res);
                 var data = res.data
                 $.each(data,function(key,item){
-                	alert(item);
+                	var tpl = $('#songshukr-production-item-template').html();
+                	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
+					$('.songshukr-container').append(htmlStr);
                 });
             }
         });
@@ -189,6 +83,17 @@
 		},600);
 		setTimeout(function(){
 			$('.songshukr-production-clone').remove();
-		},600)
+		},600);
+		$.ajax({
+            url : '/commodity/list',
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+            }
+        });
 	}
 </script>
