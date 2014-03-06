@@ -29,6 +29,12 @@ Songshukr\MainBundle\Entity\Commodity:
             length: 256
             fixed: false
             comment: ''
+        oprice:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
         price:
             type: float
             nullable: false

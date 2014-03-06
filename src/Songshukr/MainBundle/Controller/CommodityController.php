@@ -46,7 +46,7 @@ class CommodityController extends Controller
         
         $request = $this->get('request');
         $config = array();
-        $options = array('name', 'description', 'price', 'unit', 'status', 'allowance', 'logo');
+        $options = array('name', 'description', 'logo', 'oprice', 'price', 'unit', 'status', 'allowance');
         foreach($options as $option) {
             if($request->request->get($option) !== null) {
                 $config[$option] = urldecode($request->request->get($option));

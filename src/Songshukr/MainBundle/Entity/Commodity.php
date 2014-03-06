@@ -32,6 +32,11 @@ class Commodity
     /**
      * @var float
      */
+    private $oprice;
+
+    /**
+     * @var float
+     */
     private $price;
 
     /**
@@ -137,6 +142,29 @@ class Commodity
     public function getLogo()
     {
         return $this->logo;
+    }
+
+    /**
+     * Set oprice
+     *
+     * @param float $oprice
+     * @return Commodity
+     */
+    public function setOprice($oprice)
+    {
+        $this->oprice = $oprice;
+
+        return $this;
+    }
+
+    /**
+     * Get oprice
+     *
+     * @return float 
+     */
+    public function getOprice()
+    {
+        return $this->oprice;
     }
 
     /**
