@@ -5,11 +5,19 @@ body{
 	font-family: Arial,"MS Trebuchet",sans-serif;
 }
 .songshukr-header{
+	top: 0px;
 	height: 40px;
 	background-color: #ededed;
+	position: fixed;
+	width: 100%;
+	z-index: 100;
 }
 .songshukr-container{
-	margin: 0px 10px;
+	position: relative;
+	margin: 40px 10px 0px 10px;
+}
+.songshukr-hide{
+	display: none;
 }
 .clear{
 	clear: both;
@@ -46,29 +54,37 @@ body{
 }
 .songshukr-production-name{
 	margin: 0px 10px;
+	width: 170px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.songshukr-production-original-price{
+	text-decoration: line-through;
+	color: #777;
+	margin-right: 5px;
 }
 .songshukr-production-price{
 	margin: 10px;
+	color: #CC0000;
+	font-size: 13px;
 }
-.songshukr-production-plus{
-	display: inline-block;
-	font-size: 30px;
-}
-.songshukr-production-minus{
-	display: inline-block;
-	font-size: 30px;
-}
-.songshukr-production-shopping-btn{
+.songshukr-production-numarea{
 	position: absolute;
-	right: 100px;
-	bottom: 5px;
+	right: 10px;
+	bottom: 10px;
 }
 .songshukr-production-cartbtn{
 	position: absolute;
 	right: 0px;
 	bottom: 5px;
 }
-
+.songshukr-production-clone{
+	position: absolute;
+	border: 3px solid #ccc;
+	height: 99px;
+	width: 100%
+}
 /* System-Component */
 .songshukr-header-title{
 	font-size: 20px;

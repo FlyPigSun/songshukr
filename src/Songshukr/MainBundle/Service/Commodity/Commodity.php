@@ -67,7 +67,7 @@ class Commodity extends Common
         $ls = $this->em->getRepository('SongshukrMainBundle:Label')
                 ->findBy(array('cid'=>$cid));
         $labels = array();
-        foreach($ls as $s) {
+        foreach($ls as $l) {
             $labels[] = $l->getValue();
         }
         return $labels;
