@@ -42,7 +42,9 @@ class CommodityController extends Controller
      */
     public function commoditySetActoin($cid)
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
         
         $request = $this->get('request');
         $config = array();
@@ -64,7 +66,9 @@ class CommodityController extends Controller
      */
     public function commodityRemoveActoin($cid)
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
         
         $result = $this->get('common.commodity')->removeCommodity($cid);
         return new Response(json_encode($result));
@@ -77,7 +81,9 @@ class CommodityController extends Controller
      */
     public function labelAddAction($cid)
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
         
         $request = $this->get('request');
         $value = urldecode($request->request->get('value'));
@@ -95,7 +101,9 @@ class CommodityController extends Controller
      */
     public function labelEditAction($lid)
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
         
         $request = $this->get('request');
         $value = urldecode($request->request->get('value'));
@@ -113,7 +121,9 @@ class CommodityController extends Controller
      */
     public function labelRemoveAction($lid)
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
         
         $result = $this->get('common.commodity')->removeLabel($lid);
         return new Response(json_encode($result));

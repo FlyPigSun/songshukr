@@ -13,19 +13,27 @@ class ShopController extends Controller
     /**
      * 购物车
      *
-     * @Route("/cart/list",name="_cart_list")
+     * @Route("/cart/set",name="_cart_set")
      */
-    public function cartAction()
+    public function cartSetAction()
     {
         $request = $this->get('request');
-        $cart = $request->request->get('cart');
+        $cid = $request->request->get('cid');
+        $number = $request->request->get('number');
         $session = $this->get('session');
-        if($cart === null) {
-            $cart = $session->get('cart');
-        } else {
-            $session->set('cart', $cart);
+        $cart = json_decode($session->get('cart'));
+        if(!$cart) {
+            $cart = array();
         }
-        return new Response($session);
+        if(is_numeric($cid) && is_numeric($number) && $cid > 0) {
+            if($number > 0) {
+                $cart->$cid = $number;
+            } else {
+                unset($cart->$cid);
+            }
+        }
+        $session->set('cart', json_encode($cart));
+        return new Response(json_encode($cart));
     }
 
     /**
@@ -53,7 +61,9 @@ class ShopController extends Controller
      */
     public function orderConfirmAction()
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
 
         $request = $this->get('request');
         $orderNo = $request->request->get('orderNo');
@@ -69,7 +79,9 @@ class ShopController extends Controller
      */
     public function orderSendingAction()
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
 
         $request = $this->get('request');
         $orderNo = $request->request->get('orderNo');
@@ -120,7 +132,9 @@ class ShopController extends Controller
      */
     public function orderListAction()
     {
-        //is admin
+        if(!$this->get('common.common')->adminIsLogin()) {
+            return new Response(json_encode(array('errcode'=>103, data=>array())));
+        }
 
         $request = $this->get('request');
         $status = json_decode($request->request->get('status'));

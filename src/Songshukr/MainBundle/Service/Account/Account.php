@@ -294,42 +294,6 @@ class Account extends Common
     }
 
     /**
-     * 管理员登录密码检查
-     * 
-     * @param int $adminid
-     * @param string $passwor
-     * @return bool
-     * @author wanghaojie<haojie0429@126.com>
-     * @since 2014-2-25
-     */
-    public function checkAdminPassword($adminid, $password)
-    {
-        $admin = $this->em->getRepository('SongshukrMainBundle:Admin')
-                ->findOneBy(array('adminid' => $adminid, 'password' => sha1($password)));
-        if($admin){
-            $this->setAdminLogin($admin);
-            return true;
-        } 
-        return false;
-    }
-
-    /**
-     * 设置管理员登录的session
-     *
-     * @param repository $admin
-     * @return null
-     * @author wanghaojie<haojie0429@126.com>
-     * @since 2014-2-25
-     */
-    public function setAdminLogin($admin)
-    {
-        $this->container->get('session')->set('admin_id',$admin->getAdminid());
-        $this->container->get('session')->set('admin_email',$admin->getEmail());
-        $this->container->get('session')->set('admin_name',$admin->getAdminname());
-        $this->container->get('session')->set('admin_cellphone',$admin->getCellphone());
-    }
-
-    /**
      * 根据键值对获取用户(管理员权限)
      * 
      * @param int $adminid
@@ -461,4 +425,32 @@ class Account extends Common
         $account['username'] = $u->getUsername();
         return array('errcode'=>100,'data'=>array('account'=>$account));
     }
+
+    /**
+     * 管理员登录
+     * 
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-8
+     */
+    public function adminLogin($name, $password)
+    {
+        $admin = $this->em->getRepository('SongshukrMainBundle:Admin')
+                        ->findOneBy(array('name' => $name, 'password' => sha1($password)));
+        if($admin){
+            $this->setAdminLogin($admin);
+            return true;
+        } 
+        return false;
+    }
+
+    /**
+     * 设置管理员登录的session
+     * 
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-8
+     */
+    public function setAdminLogin($admin)
+    {
+        $this->container->get('session')->set('admin',$admin->getName());
+    }   
 }

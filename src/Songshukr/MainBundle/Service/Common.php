@@ -26,5 +26,21 @@ class Common{
 		$this->logger = $logger;
 	}
 
+	/**
+	 * 是否管理员登录
+	 * 
+	 * @author wanghaojie<haojie0429@126.com>
+	 * @since 2014-3-8
+	 */
+	public function adminIsLogin()
+	{
+		$session = $this->container->get('session');
+        $admin = $session->get('admin');
+        if($admin) {
+            return true;
+        } else {
+            return false;
+        }
+	}
     	
 }

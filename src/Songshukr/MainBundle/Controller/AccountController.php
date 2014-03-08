@@ -434,4 +434,45 @@ class AccountController extends Controller
         $result = $this->get('common.account')->accountGet($uid);
         return new Response(json_encode($result));
     }
+
+    /**
+     * 管理员登录
+     * 
+     * @Route("/admin/login",name="_admin_login")
+     */
+    public function adminLoginAction()
+    {
+        $request = $this->get('request');
+        $name = $request->get('name');
+        $password = $request->get('password');
+        if ($this->get('common.account')->adminLogin($name, $password)) {
+            $data = array(
+                'token'=> session_id(),
+                'admin'=> $name,
+            );
+            $response = new Response();
+            $response->headers->setCookie(new Cookie('admin',$this->get('session')->get('admin'),time()+ 13140000,'/',NULL,0,0));
+            $response->setContent(json_encode(array('errcode'=>100,'data'=>$data)));
+            return $response;
+        }
+        else{
+            return new Response(json_encode(array('errcode'=>103,'data'=>array())));
+        }
+    }
+
+    /**
+     * 管理员是否登录
+     * 
+     * @Route("/admin/is_login")
+     */
+    public function adminIsloginAction()
+    {
+        $session = $this->get('session');
+        $admin = $session->get('admin');
+        if($admin) {
+            return new Response(json_encode(array('errcode'=>100, 'data'=>array('admin'=>$admin))));
+        } else {
+            return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
+        }
+    }
 }
