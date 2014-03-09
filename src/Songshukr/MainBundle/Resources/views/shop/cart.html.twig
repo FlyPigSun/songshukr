@@ -13,10 +13,11 @@
     <style type="text/css">
     	.songshukr-production-remove-ico{
     		position: absolute;
-			top: 12px;
+			top: 0px;
 			right: 10px;
 			width: 82px;
 			height: 45px;
+			padding-top: 12px;
 			text-align: right;
     	}
     </style>
@@ -51,7 +52,7 @@
 			</div>
 			<div class="songshukr-production-numarea">
 				<span style="line-height: 30px;">数量：</span>
-				<input class="songshukr-input-small songshukr-production-num" value="{{ '{{' }} number {{ '}}' }}" 
+				<input class="songshukr-input-small songshukr-production-num" value="{{ '{{' }} number {{ '}}' }}" maxlength='2'
 					style="text-align:center" />
 			</div>
 			<div class="songshukr-production-remove-ico">
@@ -79,7 +80,6 @@
                 var data = res.data
                 $.each(data,function(key,item){
                 	var tpl = $('#songshukr-cart-item-template').html();
-                	item.unit = unitHash[item.unit];
                 	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
 					$('.songshukr-container').append(htmlStr);
                 });
