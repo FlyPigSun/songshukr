@@ -15,23 +15,23 @@
 	<div class="songshukr-header">
 		<a class="songshukr-header-btn-left songshukr-main-dark" href="/index">去选购</a>
         <div class="songshukr-header-title">
-            大苹果
+            {{ name }}
         </div>
         <a class="songshukr-header-btn-right songshukr-main-dark" href="/cart">去购物车</a>
     </div>
     <div class="songshukr-container">
 		<div class="songshukr-production-item">
-            <div class="songshukr-production-cid songshukr-hide">cid</div>
-            <img class="songshukr-production-pic"/>
+            <div class="songshukr-production-cid songshukr-hide">{{ cid }}</div>
+            <img class="songshukr-production-pic" src="{{ logo }}" />
             <div style="float:left;">
                 <div class="songshukr-production-name">
-                    大苹果
+                    {{ name }}
                 </div>
                 <div class="songshukr-production-price">
                     <span class="songshukr-production-original-price">
-                        10元/斤
+                        {{ oprice }}{{ unit }}
                     </span>
-                        5元/斤
+                        {{ price }}{{ unit }}
                 </div>
             </div>
             <div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">    放入购物车
@@ -41,7 +41,7 @@
         <div class="songshukr-production-description">
             商品描述：
             <div>
-                好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜
+                {{ description }}
             </div>
         </div>
     </div>
