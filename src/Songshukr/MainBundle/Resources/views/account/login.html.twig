@@ -7,6 +7,7 @@
     <title>松鼠客-登录</title>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
     <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
     <style type="text/css">
         
@@ -33,11 +34,12 @@
 </body>
 <script>
     $(document).ready(function(){
-        $(document).delegate('.songshukr-btn-big:eq(0)','click',register);
+        $(document).delegate('.songshukr-btn-big:eq(0)','click',login);
     });
-    function register(){
+    function login(){
         var phoneNumber = $('.songshukr-input-big:eq(0)').val();
         var password = $('.songshukr-input-big:eq(1)').val();
+        var url = getArgs()['url']; 
         if(password == ''){
             alert('您的密码不能为空');
             return false;
@@ -62,7 +64,11 @@
                     var res = responseText;
                     res = $.parseJSON(res);
                     if(res.errcode == 100){
-                        window.location.href='/index';
+                        if(url == '_order'){
+                            window.location.href='/order'
+                        }else{
+                            window.location.href='/index';
+                        }
                     }else{
                         alert('用户名密码错误');
                     }
