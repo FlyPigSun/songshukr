@@ -99,7 +99,7 @@
                     if(item.status == '已下单'||item.status == '已确认')
                         item.status_sign = 1;
                     var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
-                    $('.songshukr-container').append(htmlStr);
+                    $('.songshukr-container').prepend(htmlStr);
                 });
                 $('.songshukr-order-cancle-btn').on('click',cancleOrder);
             }
