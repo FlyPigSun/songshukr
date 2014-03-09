@@ -35,9 +35,9 @@
 				</div>
 				<div class="songshukr-production-price">
 					<span class="songshukr-production-original-price">
-						30元/斤
+						{{ '{{' }} oprice {{ '}}' }}元/斤
 					</span>
-					{{ '{{' }} price {{ '}}' }}元/斤
+						{{ '{{' }} price {{ '}}' }}元/斤
 				</div>
 			</div>
 			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车
@@ -54,7 +54,7 @@
 	function getProductionList(){
 		$.ajax({
             url : '/commodity/list',
-            type : 'post',
+            type : 'get',
             headers:{
                 'CONTENT-TYPE': 'application/x-www-form-urlencoded'
             },
@@ -73,7 +73,6 @@
 	function addCart(){
 		var cloneNode = '<div class="songshukr-production-clone"></div>';
 		$('.songshukr-container').append(cloneNode);
-		//$('.songshukr-production-clone').append($(this).parent().clone());
 		var top = $(this).offset().top-105;
 		var left = $(this).position().left;
 		$('.songshukr-production-clone').css('top',top);
@@ -84,9 +83,14 @@
 		setTimeout(function(){
 			$('.songshukr-production-clone').remove();
 		},600);
+		var cid = $(this).siblings('.songshukr-production-cid').html();
 		$.ajax({
-            url : '/commodity/list',
+            url : '/cart/set',
             type : 'post',
+            data : {
+            	cid : cid,
+            	number : 1
+            },
             headers:{
                 'CONTENT-TYPE': 'application/x-www-form-urlencoded'
             },
@@ -95,5 +99,6 @@
                 res = $.parseJSON(res);
             }
         });
+        return false;
 	}
 </script>
