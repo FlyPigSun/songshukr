@@ -65,7 +65,6 @@
                 var data = res.data
                 $.each(data,function(key,item){
                 	var tpl = $('#songshukr-production-item-template').html();
-                	item.unit = unitHash[item.unit];
                 	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
 					$('.songshukr-container').append(htmlStr);
                 });
