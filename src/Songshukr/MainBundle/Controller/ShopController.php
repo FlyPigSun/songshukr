@@ -38,6 +38,24 @@ class ShopController extends Controller
     }
 
     /**
+     * 获取购物车
+     * 
+     * @Route("/cart/list",name="_cart_list")
+     */
+    public function cartListAction()
+    {
+        $session = $this->get('session');
+        $cart = json_decode($session->get('cart'));
+        $result = array();
+        foreach($cart as $cid=>$number) {
+            $commodity = $this->get('common.commodity')->getCommodityByCid($cid);
+            $commodity['number'] = $number;
+            $result[] = $commodity;
+        }
+        return new Response(json_encode($result));
+    }
+
+    /**
      * 生成订单
      *
      * @Route("/order/create",name="_order_create")
