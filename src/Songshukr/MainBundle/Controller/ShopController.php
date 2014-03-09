@@ -48,7 +48,9 @@ class ShopController extends Controller
         $cart = json_decode($session->get('cart'));
         $result = array();
         foreach($cart as $cid=>$number) {
-            $commodity = $this->get('common.commodity')->getCommodityByCid($cid);
+            $res = $this->get('common.commodity')->getCommodityByCid($cid);
+            if($res['errcode'] != 100) continue;
+            $commodity = $res['data'];
             $commodity['number'] = $number;
             $result[] = $commodity;
         }
