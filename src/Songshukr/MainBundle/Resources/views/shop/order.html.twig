@@ -1,1 +1,165 @@
-aaaaaaaaaa
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>松鼠客-购物车</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
+    <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+    	.songshukr-order-title{
+    		text-align: left;
+            font-size: 15px;
+    	}
+        .songshukr-order-customer{
+            position: relative;
+            text-align: left;
+            padding: 10px;
+        }
+        .songshukr-order-customer-item{
+            margin:6px 0px;
+        }
+        .songshukr-order-customer-tips{
+            line-height: 34px;
+        }
+        .songshukr-order-input{
+            font-size: 16px;
+            width: 200px;
+            height: 30px;
+            border: 1px solid #CCC;
+            outline:none;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div class="songshukr-header">
+        <a class="songshukr-header-btn-left songshukr-main-dark" href="/cart">去购物车</a>
+        <div class="songshukr-header-title">
+            订单结算
+        </div>
+        <a class="songshukr-header-btn-right songshukr-main-dark">提交订单</a>
+    </div>
+    <div class="songshukr-container">
+        <div class="songshukr-header-title songshukr-order-title">
+            收货人信息
+        </div>
+        <div class="songshukr-order-customer">
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">姓名：
+                    <span class="songshukr-order-customer-content">{{ username }}</span>
+                </span>
+                <input class="songshukr-order-input songshukr-hide"/>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">电话：
+                    <span class="songshukr-order-customer-content">{{ cellphone }}</span>
+                </span>
+                <input class="songshukr-order-input songshukr-hide"/>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">地址：
+                    <span class="songshukr-order-customer-content">{{ address }}</span>
+                </span>
+                <input class="songshukr-order-input songshukr-hide"/>
+            </div>
+        </div>
+        <div class="songshukr-header-title songshukr-order-title">
+            商品清单
+        </div>
+        <div class="songshukr-order-production-list">
+        </div>
+    </div>
+</body>
+<script id="songshukr-order-item-template" type="text/html">
+    <div class="songshukr-production-item">
+        <div class="songshukr-production-cid songshukr-hide">{{ '{{' }} cid {{ '}}' }}</div>
+        <img class="songshukr-production-pic"/>
+        <div style="float:left;">
+            <div class="songshukr-production-name">
+                {{ '{{' }} name {{ '}}' }}
+            </div>
+            <div class="songshukr-production-price">
+                <span class="songshukr-production-original-price">
+                    {{ '{{' }} oprice {{ '}}' }}元/斤
+                </span>
+                    {{ '{{' }} price {{ '}}' }}元/斤
+            </div>
+        </div>
+        <div class="songshukr-production-numarea">
+            <span style="line-height: 30px;">数量：</span>
+            <span>{{ '{{' }} number {{ '}}' }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+<script>
+    $(document).ready(function(){
+        $('.songshukr-order-customer-item').on('click',showCustomer);
+        $('.songshukr-order-input').blur(function(){
+            var content = $(this).val()
+            $(this).siblings('.songshukr-order-customer-tips')
+                .find('.songshukr-order-customer-content').html(content);
+            $(this).find('.songshukr-order-input').hide();
+            $(this).siblings('.songshukr-order-customer-tips')
+                .find('.songshukr-order-customer-content').show();
+            $(this).hide();
+        });
+        $(document).delegate('.songshukr-header-btn-right','click',orderSubmit);
+        getOrderList();
+    });
+    function getOrderList(){
+        $.ajax({
+            url : '/cart/list',
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                var data = res.data
+                $.each(data,function(key,item){
+                    var tpl = $('#songshukr-order-item-template').html();
+                    var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
+                    $('.songshukr-order-production-list').append(htmlStr);
+                });
+            }
+        });
+    };
+    function showCustomer(){
+        $(this).find('.songshukr-order-customer-content').hide();
+        $(this).find('.songshukr-order-input').show();
+    };
+    function orderSubmit(){
+        var name = $('.songshukr-order-customer-content:eq(0)').html();
+        var cellphone = $('.songshukr-order-customer-content:eq(1)').html();
+        var address = $('.songshukr-order-customer-content:eq(2)').html();
+        $.ajax({
+            url : '/order/create',
+            type : 'post',
+            data : {
+                name : name,
+                cellphone : cellphone,
+                address : address
+            },
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                if(res.errcode==100){
+                    alert('订单创建成功');
+                    window.location.href = '/order/mine';
+                }else{
+                    alert('订单创建失败');
+                }
+            }
+        });
+    }
+</script>

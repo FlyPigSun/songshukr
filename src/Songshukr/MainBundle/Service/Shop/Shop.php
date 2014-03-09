@@ -29,14 +29,14 @@ class Shop extends Common
 	 * @author wanghaojie<haojie0429@126.com>
 	 * @since 2014-3-2
 	 */
-    public function createOrder($uid, $cart, $name, $cellphone, $address)
+    public function createOrder($uid, $cart, $username, $cellphone, $address)
     {
     	$orderNo = md5(time().rand(0,1000));
         $o = new \Songshukr\MainBundle\Entity\Orders();
         $o->setUid($uid)
             ->setOrderNo($orderNo)
             ->setStatus(0)
-            ->setName($name)
+            ->setName($username)
             ->setCellphone($cellphone)
             ->setAddress($address)
             ->setCtime(new \DateTime)

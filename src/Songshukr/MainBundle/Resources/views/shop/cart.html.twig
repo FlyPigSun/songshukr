@@ -28,7 +28,7 @@
         <div class="songshukr-header-title">
             我的购物车
         </div>
-        <a class="songshukr-header-btn-right songshukr-main-dark" href="/order">去结算</a>
+        <a class="songshukr-header-btn-right songshukr-main-dark">去结算</a>
     </div>
     <div class="songshukr-container">
 		
@@ -65,6 +65,7 @@
 <script>
 	$(document).ready(function(){
 		$(document).delegate('.songshukr-production-remove-ico','click',removeProduction);
+		$(document).delegate('.songshukr-header-btn-right','click',setAccount);
 		getCartList();
 	});
 	function getCartList(){
@@ -132,5 +133,13 @@
 	            }
 	        });
 		});
+	};
+	function setAccount(){
+		if($.trim($('.songshukr-container').html())==''){
+			alert('您的购物车是空的,请您去大厅购物');
+			window.location.href = '/index'
+		}else{
+			window.location.href = '/order';
+		}
 	}
 </script>
