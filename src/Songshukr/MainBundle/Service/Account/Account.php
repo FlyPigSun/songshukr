@@ -410,20 +410,18 @@ class Account extends Common
      * @author wanghaojie<haojie0429@126.com>
      * @since 2014-2-25
      */
-    public function accountGet($uid)
+    public function getUserInfo($uid)
     {
         $u = $this->em->getRepository('SongshukrMainBundle:User')->find($uid);
         if(!$u) {
             return array('errcode'=>113,'data'=>array());
         }
         $account = array();
-        $account['weibo_name'] = $u->getWeiboName();
-        $account['weibo_url'] = $u->getWeiboUrl();
-        $account['description'] = $u->getDescription();
-        $account['cellphone'] = $u->getCellphone();
-        $account['website'] = $u->getWebsite();
         $account['username'] = $u->getUsername();
-        return array('errcode'=>100,'data'=>array('account'=>$account));
+        $account['cellphone'] = $u->getCellphone();
+        $account['address'] = $u->getAddress();
+        $account['uid'] = $uid;
+        return array('errcode'=>100,'data'=>$account);
     }
 
     /**

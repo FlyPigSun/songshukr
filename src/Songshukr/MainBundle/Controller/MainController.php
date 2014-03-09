@@ -79,6 +79,9 @@ class MainController extends Controller
         if(!$uid) {
             return $this->redirect('/login?url=_order');
         }
-        return $this->render('SongshukrMainBundle:shop:order.html.twig');
+        $result = $this->get('common.account')->getUserInfo($uid);
+        if($result['errcode'] == 100) $userInfo = $result['data'];
+        else $userInfo = array();
+        return $this->render('SongshukrMainBundle:shop:order.html.twig', $userInfo);
     }
 }
