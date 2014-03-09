@@ -17,13 +17,68 @@
         <div class="songshukr-header-title">
             大苹果
         </div>
+        <a class="songshukr-header-btn-right songshukr-main-dark" href="/cart">去购物车</a>
     </div>
     <div class="songshukr-container">
-		
+		<div class="songshukr-production-item">
+            <div class="songshukr-production-cid songshukr-hide">cid</div>
+            <img class="songshukr-production-pic"/>
+            <div style="float:left;">
+                <div class="songshukr-production-name">
+                    大苹果
+                </div>
+                <div class="songshukr-production-price">
+                    <span class="songshukr-production-original-price">
+                        10元/斤
+                    </span>
+                        5元/斤
+                </div>
+            </div>
+            <div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">    放入购物车
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="songshukr-production-description">
+            商品描述：
+            <div>
+                好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜，好吃，甜，新鲜
+            </div>
+        </div>
     </div>
 </body>
 <script>
 	$(document).ready(function(){
-
+        $(document).delegate('.songshukr-production-cartbtn','click',addCart);
 	});
+    function addCart(){
+        var cloneNode = '<div class="songshukr-production-clone"></div>';
+        $('.songshukr-container').append(cloneNode);
+        var top = $(this).offset().top-105;
+        var left = $(this).position().left;
+        $('.songshukr-production-clone').css('top',top);
+        var disappearTop = $(document).scrollTop()-20; 
+        $('.songshukr-production-clone').animate({
+            height:'10px',width:'40px',right:'0px',top:disappearTop
+        },600);
+        setTimeout(function(){
+            $('.songshukr-production-clone').remove();
+        },600);
+        var cid = $(this).siblings('.songshukr-production-cid').html();
+        $.ajax({
+            url : '/cart/set',
+            type : 'post',
+            data : {
+                cid : cid,
+                number : 1
+            },
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+            }
+        });
+        return false;
+    }
 </script>

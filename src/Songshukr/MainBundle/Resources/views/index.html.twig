@@ -1,13 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<title>松鼠客</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>松鼠客</title>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
     <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
     <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
     <style type="text/css">
     </style>
@@ -35,9 +36,9 @@
 				</div>
 				<div class="songshukr-production-price">
 					<span class="songshukr-production-original-price">
-						{{ '{{' }} oprice {{ '}}' }}元/斤
+						{{ '{{' }} oprice {{ '}}' }}{{ '{{' }} unit {{ '}}' }}
 					</span>
-						{{ '{{' }} price {{ '}}' }}元/斤
+						{{ '{{' }} price {{ '}}' }}{{ '{{' }} unit {{ '}}' }}
 				</div>
 			</div>
 			<div class="songshukr-btn-small songshukr-production-cartbtn songshukr-bg-main-shallow">放入购物车
@@ -64,6 +65,7 @@
                 var data = res.data
                 $.each(data,function(key,item){
                 	var tpl = $('#songshukr-production-item-template').html();
+                	item.unit = unitHash[item.unit];
                 	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
 					$('.songshukr-container').append(htmlStr);
                 });
@@ -71,34 +73,34 @@
         });
 	}
 	function addCart(){
-		var cloneNode = '<div class="songshukr-production-clone"></div>';
-		$('.songshukr-container').append(cloneNode);
-		var top = $(this).offset().top-105;
-		var left = $(this).position().left;
-		$('.songshukr-production-clone').css('top',top);
-		var disappearTop = $(document).scrollTop()-20; 
-		$('.songshukr-production-clone').animate({
-			height:'10px',width:'40px',right:'0px',top:disappearTop
-		},600);
-		setTimeout(function(){
-			$('.songshukr-production-clone').remove();
-		},600);
-		var cid = $(this).siblings('.songshukr-production-cid').html();
-		$.ajax({
-            url : '/cart/set',
-            type : 'post',
-            data : {
-            	cid : cid,
-            	number : 1
-            },
-            headers:{
-                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
-            },
-            success : function(responseText){
-                var res = responseText;
-                res = $.parseJSON(res);
-            }
-        });
-        return false;
+	    var cloneNode = '<div class="songshukr-production-clone"></div>';
+	    $('.songshukr-container').append(cloneNode);
+	    var top = $(this).offset().top-105;
+	    var left = $(this).position().left;
+	    $('.songshukr-production-clone').css('top',top);
+	    var disappearTop = $(document).scrollTop()-20; 
+	    $('.songshukr-production-clone').animate({
+	        height:'10px',width:'40px',right:'0px',top:disappearTop
+	    },600);
+	    setTimeout(function(){
+	        $('.songshukr-production-clone').remove();
+	    },600);
+	    var cid = $(this).siblings('.songshukr-production-cid').html();
+	    $.ajax({
+	        url : '/cart/set',
+	        type : 'post',
+	        data : {
+	            cid : cid,
+	            number : 1
+	        },
+	        headers:{
+	            'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+	        },
+	        success : function(responseText){
+	            var res = responseText;
+	            res = $.parseJSON(res);
+	        }
+	    });
+	    return false;
 	}
 </script>

@@ -66,4 +66,14 @@ class MainController extends Controller
             return $this->render('SongshukrMainBundle::index.html.twig');
         }
     }
+
+    /**
+     * 订单詳情頁面
+     * 
+     * @Route("/order", name="_order")
+     */
+    public function orderAction()
+    {
+        return $this->render('SongshukrMainBundle:shop:order.html.twig');
+    }
 }

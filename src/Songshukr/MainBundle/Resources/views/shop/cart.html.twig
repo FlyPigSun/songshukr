@@ -1,18 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<title>松鼠客-购物车</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>松鼠客-购物车</title>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
     <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
     <style type="text/css">
     	.songshukr-production-remove-ico{
     		position: absolute;
-    		top:12px;
-    		right: 10px;
+			top: 12px;
+			right: 10px;
+			width: 82px;
+			height: 45px;
+			text-align: right;
     	}
     </style>
 </head>
@@ -22,7 +27,7 @@
         <div class="songshukr-header-title">
             我的购物车
         </div>
-        <a class="songshukr-header-btn-right songshukr-main-dark" href="">去结算</a>
+        <a class="songshukr-header-btn-right songshukr-main-dark" href="/order">去结算</a>
     </div>
     <div class="songshukr-container">
 		
@@ -46,7 +51,7 @@
 			</div>
 			<div class="songshukr-production-numarea">
 				<span style="line-height: 30px;">数量：</span>
-				<input class="songshukr-input-small songshukr-production-num" value="1" 
+				<input class="songshukr-input-small songshukr-production-num" value="{{ '{{' }} number {{ '}}' }}" 
 					style="text-align:center" />
 			</div>
 			<div class="songshukr-production-remove-ico">
@@ -63,7 +68,7 @@
 	});
 	function getCartList(){
 		$.ajax({
-            url : '/cart/set',
+            url : '/cart/list',
             type : 'post',
             headers:{
                 'CONTENT-TYPE': 'application/x-www-form-urlencoded'
@@ -74,15 +79,58 @@
                 var data = res.data
                 $.each(data,function(key,item){
                 	var tpl = $('#songshukr-cart-item-template').html();
+                	item.unit = unitHash[item.unit];
                 	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
 					$('.songshukr-container').append(htmlStr);
                 });
+                bindInput();
             }
         });
-	}
+	};
 	function removeProduction(){
 		if(confirm("确定从购物车中删除此商品")){
     		$(this).parent().remove();
+    		var cid = $(this).siblings('.songshukr-production-cid').html();
+    		$.ajax({
+	            url : '/cart/set',
+	            type : 'post',
+	            data : {
+	            	cid : cid,
+	            	number : 0
+	            },
+	            headers:{
+	                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+	            },
+	            success : function(responseText){
+	            	var res = responseText;
+                	res = $.parseJSON(res);
+	            }
+	        });
    		}
+   		return false;
+	};
+	function bindInput(){
+		$('.songshukr-production-num').on('click',function(){
+					return false;
+		});
+		$('.songshukr-production-num').blur(function(){
+			var cid = $(this).parent().siblings('.songshukr-production-cid').html();
+			var number = $(this).val();
+			$.ajax({
+	            url : '/cart/set',
+	            type : 'post',
+	            data : {
+	            	cid : cid,
+	            	number : number
+	            },
+	            headers:{
+	                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+	            },
+	            success : function(responseText){
+	                var res = responseText;
+	                res = $.parseJSON(res);
+	            }
+	        });
+		});
 	}
 </script>
