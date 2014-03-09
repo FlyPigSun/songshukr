@@ -166,4 +166,37 @@ class Shop extends Common
         }
         return $result;
     }
+
+    /**
+     * 获取用户历史订单
+     * 
+     * @param int $uid
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-9
+     */
+    public function getOrderListByUid($uid)
+    {
+        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('uid'=>$uid));
+        $result = array();
+        foreach($os as $o) {
+            $ocs = $this->em->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$o->getOrderNo()));
+            $items = array();
+            foreach($ocs as $oc) {
+                $items[] = array(
+                        'cid'=>$oc->getCid(),
+                        'name'=>$oc->getName(),
+                        'number'=>$oc->getNumber(),
+                        'price'=>$oc->getPrice(),
+                        'ctime'=>$oc->getCtime()->format('Y-m-d H:i:s'),
+                    );
+            }
+            $result[] = array(
+                    'orderNo'=>$o->getOrderNo(),
+                    'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
+                    'status'=>$o->getStatus(),
+                    'commodities'=>$items,
+                );
+        }
+        return $result;
+    }
 }
