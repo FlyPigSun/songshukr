@@ -68,7 +68,7 @@ class MainController extends Controller
     }
 
     /**
-     * 订单詳情頁面
+     * 提交订单頁面
      * 
      * @Route("/order", name="_order")
      */
@@ -86,6 +86,16 @@ class MainController extends Controller
         $result = $this->get('common.account')->getUserInfo($uid);
         if($result['errcode'] == 100) $userInfo = $result['data'];
         else $userInfo = array();
-        return $this->render('SongshukrMainBundle:shop:order.html.twig', $userInfo);
+        return $this->render('SongshukrMainBundle:shop:order_create.html.twig', $userInfo);
+    }
+
+    /**
+     * 我的订单頁面
+     * 
+     * @Route("/order/mine", name="_order_mine")
+     */
+    public function orderMineAction()
+    {
+        return $this->render('SongshukrMainBundle:account:history_order.html.twig');
     }
 }

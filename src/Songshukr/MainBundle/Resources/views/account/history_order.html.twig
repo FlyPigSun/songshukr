@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>松鼠客-购物车</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
+    <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+        .songshukr-container{
+            position: relative;
+            overflow: auto;
+            margin: 40px 0px 0px 0px;
+        }
+        .songshukr-order-number{
+            text-align: left;
+            padding: 5px 0px;
+        }
+        .songshukr-order-item{
+           padding-bottom: 10px;
+           color: #000;
+        }
+        .songshukr-order-table{
+            width: 100%;
+        }
+        .songshukr-order-table tr{
+        }
+        .songshukr-order-table th{
+            width: 33%;
+        }
+        .songshukr-order-table td{
+            border: 0px;
+            width: 33%;
+        }
+        .songshukr-order-cancle-btn{
+            color: #CC6666;
+        }
+    </style>
+</head>
+<body>
+    <div class="songshukr-header">
+        <a class="songshukr-header-btn-left songshukr-main-dark" href="/index">去选购</a>
+        <div class="songshukr-header-title">
+            我的订单
+        </div>
+    </div>
+    <div class="songshukr-container">
+        
+    </div>
+</body>
+<script id="songshukr-order-item-template" type="text/html">
+    <a href="/order/{{ '{{' }} orderNo {{ '}}' }}">
+        <div class="songshukr-order-item">
+            <div class="songshukr-order-number songshukr-bg-main-shallow">订单编号：<span>{{ '{{' }} orderNo {{ '}}' }}</span></div>
+            <table class="songshukr-order-table">
+                <tbody>
+                    <tr>
+                        <th style="text-align:left;">收货人</th>
+                        <th>创建时间</th>
+                        <th style="text-align:right;">订单状态</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">{{ '{{' }} username {{ '}}' }}</td>
+                        <td>{{ '{{' }} ctime {{ '}}' }}</td>
+                        <td style="text-align:right;">
+                            {{ '{{' }} status {{ '}}' }}
+                            {{ '{{#' }} status_sign {{ '}}' }}
+                            <div class="songshukr-order-cancle-btn">取消</div>
+                            {{ '{{/' }} status_sign {{ '}}' }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </a>
+</script>
+<script>
+    $(document).ready(function(){
+        getOrderlist();
+    });
+    function getOrderlist(){
+        $('.songshukr-container').html('');
+        $.ajax({
+            url : '/order/user',
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                var data = res.data
+                $.each(data,function(key,item){
+                    var tpl = $('#songshukr-order-item-template').html();
+                    if(item.status == '已下单'||item.status == '已确认')
+                        item.status_sign = 1;
+                    var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
+                    $('.songshukr-container').append(htmlStr);
+                });
+                $('.songshukr-order-cancle-btn').on('click',cancleOrder);
+            }
+        });
+    };
+    function cancleOrder(){
+        if(confirm("确定要取消该订单么？")){
+            var orderNo = $(this).parents('.songshukr-order-item').find('.songshukr-order-number span').html();
+            $.ajax({
+                url : '/order/cancel',
+                type : 'post',
+                data : {
+                    orderNo : orderNo
+                },
+                headers:{
+                    'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+                },
+                success : function(responseText){
+                    var res = responseText;
+                    res = $.parseJSON(res);
+                    if(res.errcode == 100){
+                        alert('订单取消成功');
+                        getOrderlist();
+                    }else{
+                        alert('订单取消失败');
+                    }
+                }
+            });
+        }
+        return false;
+    }
+</script>
