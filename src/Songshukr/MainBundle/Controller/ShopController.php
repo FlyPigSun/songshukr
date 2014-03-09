@@ -54,7 +54,7 @@ class ShopController extends Controller
             $commodity['number'] = $number;
             $result[] = $commodity;
         }
-        return new Response(json_encode($result));
+        return new Response(json_encode(array('errcode'=>100, 'data'=>$result)));
     }
 
     /**
