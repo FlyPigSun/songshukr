@@ -203,8 +203,11 @@ class Shop extends Common
             $result[] = array(
                     'orderNo'=>$o->getOrderNo(),
                     'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
-                    'status'=>$o->getStatus(),
+                    'status'=>$this->orderStatus[$o->getStatus()],
                     'commodities'=>$items,
+                    'username'=>$o->getName(),
+                    'cellphone'=>$o->getCellphone(),
+                    'address'=>$o->getAddress(),
                 );
         }
         return array('errcode'=>100, 'data'=>$result);

@@ -28,6 +28,8 @@ class Common{
 
 	public $units = array('元/斤', '元/个');
 
+	public $orderStatus = array('-1'=>'已取消', '0'=>'已下单', '1'=>'已确认', '2'=>'正在配送', '3'=>'已收货');
+
 	/**
 	 * 是否管理员登录
 	 * 
