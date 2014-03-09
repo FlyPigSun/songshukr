@@ -39,6 +39,21 @@ class Orders
      */
     private $utime;
 
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $cellphone;
+
+    /**
+     * @var string
+     */
+    private $address;
+
 
     /**
      * Get oid
@@ -163,5 +178,74 @@ class Orders
     public function getUtime()
     {
         return $this->utime;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Orders
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set cellphone
+     *
+     * @param string $cellphone
+     * @return Orders
+     */
+    public function setCellphone($cellphone)
+    {
+        $this->cellphone = $cellphone;
+
+        return $this;
+    }
+
+    /**
+     * Get cellphone
+     *
+     * @return string 
+     */
+    public function getCellphone()
+    {
+        return $this->cellphone;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Orders
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

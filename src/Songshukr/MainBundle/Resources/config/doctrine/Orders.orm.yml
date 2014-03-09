@@ -38,4 +38,22 @@ Songshukr\MainBundle\Entity\Orders:
             type: datetime
             nullable: true
             comment: ''
+        name:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: ''
+        cellphone:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: ''
+        address:
+            type: string
+            nullable: true
+            length: 1024
+            fixed: false
+            comment: ''
     lifecycleCallbacks: {  }

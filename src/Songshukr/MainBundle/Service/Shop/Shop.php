@@ -29,13 +29,16 @@ class Shop extends Common
 	 * @author wanghaojie<haojie0429@126.com>
 	 * @since 2014-3-2
 	 */
-    public function createOrder($uid, $cart)
+    public function createOrder($uid, $cart, $name, $cellphone, $address)
     {
     	$orderNo = md5(time().rand(0,1000));
         $o = new \Songshukr\MainBundle\Entity\Orders();
         $o->setUid($uid)
             ->setOrderNo($orderNo)
             ->setStatus(0)
+            ->setName($name)
+            ->setCellphone($cellphone)
+            ->setAddress($address)
             ->setCtime(new \DateTime)
             ->setUtime(new \DateTime);
         $this->em->persist($o);
@@ -56,6 +59,13 @@ class Shop extends Common
     		$this->em->persist($oc);
             $this->em->flush();
     	}
+
+        $u = $this->em->getRepository('SongshukrMainBundle:User')->find($uid);
+        if(!$u) {
+            return array('errcode'=>113,'data'=>array());
+        }
+        $u->setAddress($address)->setUsername($username);
+        $this->em->flush();
 
     	return array('errcode'=>100, 'data'=>array('orderNo'=>$orderNo));
     }

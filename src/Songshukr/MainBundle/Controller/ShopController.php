@@ -68,11 +68,15 @@ class ShopController extends Controller
         $session = $this->get('session');
         $uid = $session->get('user_id') ? $session->get('user_id') : 0;
         if($uid == 0) return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
+        $request = $this->get('request');
+        $name = $request->request->get('name');
+        $cellphone = $request->request->get('cellphone');
+        $address = $request->request->get('address');
         $cart = json_decode($session->get('cart'));
         if(!$cart) {
             return new Response(json_encode(array('errcode'=>101,'data'=>array())));
         }
-        $result = $this->get('common.shop')->createOrder($uid, $cart);
+        $result = $this->get('common.shop')->createOrder($uid, $cart, $name, $cellphone, $address);
         if($result['errcode'] == 100) {
             $session->set('cart', json_encode(array()));
         }
