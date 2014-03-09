@@ -79,6 +79,10 @@ class MainController extends Controller
         if(!$uid) {
             return $this->redirect('/login?url=_order');
         }
+        $cart = json_decode($session->get('cart'));
+        if(count((array)$cart) == 0) {
+            return $this->redirect('/index');
+        }
         $result = $this->get('common.account')->getUserInfo($uid);
         if($result['errcode'] == 100) $userInfo = $result['data'];
         else $userInfo = array();
