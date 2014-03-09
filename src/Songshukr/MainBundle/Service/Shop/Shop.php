@@ -174,7 +174,7 @@ class Shop extends Common
                     'commodities'=>$items,
                 );
         }
-        return $result;
+        return array('errcode'=>100, 'data'=>$result);
     }
 
     /**
@@ -207,6 +207,6 @@ class Shop extends Common
                     'commodities'=>$items,
                 );
         }
-        return $result;
+        return array('errcode'=>100, 'data'=>$result);
     }
 }

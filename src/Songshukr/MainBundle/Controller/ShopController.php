@@ -91,7 +91,7 @@ class ShopController extends Controller
     public function orderConfirmAction()
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
 
         $request = $this->get('request');
@@ -109,7 +109,7 @@ class ShopController extends Controller
     public function orderSendingAction()
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
 
         $request = $this->get('request');
@@ -162,7 +162,7 @@ class ShopController extends Controller
     public function orderListAction()
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
 
         $request = $this->get('request');

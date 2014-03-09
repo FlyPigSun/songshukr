@@ -43,7 +43,7 @@ class CommodityController extends Controller
     public function commoditySetActoin($cid)
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
         
         $request = $this->get('request');
@@ -67,7 +67,7 @@ class CommodityController extends Controller
     public function commodityRemoveActoin($cid)
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
         
         $result = $this->get('common.commodity')->removeCommodity($cid);
@@ -82,7 +82,7 @@ class CommodityController extends Controller
     public function labelAddAction($cid)
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
         
         $request = $this->get('request');
@@ -102,7 +102,7 @@ class CommodityController extends Controller
     public function labelEditAction($lid)
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
         
         $request = $this->get('request');
@@ -122,7 +122,7 @@ class CommodityController extends Controller
     public function labelRemoveAction($lid)
     {
         if(!$this->get('common.common')->adminIsLogin()) {
-            return new Response(json_encode(array('errcode'=>103, data=>array())));
+            return new Response(json_encode(array('errcode'=>103, 'data'=>array())));
         }
         
         $result = $this->get('common.commodity')->removeLabel($lid);
