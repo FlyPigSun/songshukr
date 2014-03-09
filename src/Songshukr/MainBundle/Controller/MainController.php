@@ -74,6 +74,11 @@ class MainController extends Controller
      */
     public function orderAction()
     {
+        $session = $this->get('session');
+        $uid = $session->get('user_id');
+        if(!$uid) {
+            return $this->redirect('/login?url=_order');
+        }
         return $this->render('SongshukrMainBundle:shop:order.html.twig');
     }
 }
