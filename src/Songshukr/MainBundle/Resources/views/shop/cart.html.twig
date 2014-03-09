@@ -25,13 +25,23 @@
         <a class="songshukr-header-btn-right songshukr-main-dark" href="">去结算</a>
     </div>
     <div class="songshukr-container">
+		
+    </div>
+</body>
+<script id="songshukr-cart-item-template" type="text/html">
+	<a href="/commodity/detail/{{ '{{' }} cid {{ '}}' }}">
 		<div class="songshukr-production-item">
+			<div class="songshukr-production-cid songshukr-hide">{{ '{{' }} cid {{ '}}' }}</div>
 			<img class="songshukr-production-pic"/>
 			<div style="float:left;">
-				<div class="songshukr-production-name">新疆阿克苏原产大苹果</div>
+				<div class="songshukr-production-name">
+					{{ '{{' }} name {{ '}}' }}
+				</div>
 				<div class="songshukr-production-price">
-					<span class="songshukr-production-original-price">30元/斤</span>
-					15元/斤
+					<span class="songshukr-production-original-price">
+						{{ '{{' }} oprice {{ '}}' }}元/斤
+					</span>
+						{{ '{{' }} price {{ '}}' }}元/斤
 				</div>
 			</div>
 			<div class="songshukr-production-numarea">
@@ -44,12 +54,32 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-    </div>
-</body>
+	</a>
+</script>
 <script>
 	$(document).ready(function(){
 		$(document).delegate('.songshukr-production-remove-ico','click',removeProduction);
+		getCartList();
 	});
+	function getCartList(){
+		$.ajax({
+            url : '/cart/set',
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                var data = res.data
+                $.each(data,function(key,item){
+                	var tpl = $('#songshukr-cart-item-template').html();
+                	var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
+					$('.songshukr-container').append(htmlStr);
+                });
+            }
+        });
+	}
 	function removeProduction(){
 		if(confirm("确定从购物车中删除此商品")){
     		$(this).parent().remove();
