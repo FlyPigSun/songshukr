@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Cookie;
-use \stdClass;
 
 class ShopController extends Controller
 {
@@ -24,7 +23,7 @@ class ShopController extends Controller
         $session = $this->get('session');
         $cart = json_decode($session->get('cart'));
         if(!$cart) {
-            $cart = new stdClass;
+            $cart = array();
         }
         if(is_numeric($cid) && is_numeric($number) && $cid > 0) {
             if($number > 0) {
