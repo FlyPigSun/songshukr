@@ -32,7 +32,7 @@ class Shop extends Common
     public function createOrder($uid, $cart)
     {
     	$orderNo = md5(time().rand(0,1000));
-        $o = new \Songshukr\MainBundle\Entity\Order();
+        $o = new \Songshukr\MainBundle\Entity\Orders();
         $o->setUid($uid)
             ->setOrderNo($orderNo)
             ->setStatus(0)
@@ -41,7 +41,7 @@ class Shop extends Common
         $this->em->persist($o);
         $this->em->flush();
     	foreach($cart as $cid=>$number) {
-    		$c = $this->getRepository('SongshukrMainBundle:Commodity')->find($cid);
+    		$c = $this->em->getRepository('SongshukrMainBundle:Commodity')->find($cid);
     		if(!$c) continue;
     		$price = $c->getPrice();
             $name = $c->getName();

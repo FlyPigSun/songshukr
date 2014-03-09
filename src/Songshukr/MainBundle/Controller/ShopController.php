@@ -47,6 +47,7 @@ class ShopController extends Controller
         $session = $this->get('session');
         $cart = json_decode($session->get('cart'));
         $result = array();
+        if(!$cart) $cart = new stdClass();
         foreach($cart as $cid=>$number) {
             $res = $this->get('common.commodity')->getCommodityByCid($cid);
             if($res['errcode'] != 100) continue;
@@ -67,11 +68,14 @@ class ShopController extends Controller
         $session = $this->get('session');
         $uid = $session->get('user_id') ? $session->get('user_id') : 0;
         if($uid == 0) return new Response(json_encode(array('errcode'=>104, 'data'=>array())));
-        $cart = json_decode($session->get('sessioin'));
+        $cart = json_decode($session->get('cart'));
         if(!$cart) {
             return new Response(json_encode(array('errcode'=>101,'data'=>array())));
         }
         $result = $this->get('common.shop')->createOrder($uid, $cart);
+        if($result['errcode'] == 100) {
+            $session->set('cart', json_encode(array()));
+        }
         return new Response(json_encode($result));
     }
 
