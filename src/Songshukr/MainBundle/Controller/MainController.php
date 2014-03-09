@@ -61,7 +61,6 @@ class MainController extends Controller
         $result = $this->get('common.commodity')->getCommodityByCid($cid);
         if($result['errcode'] == 100) {
             $commodity = $result['data'];
-            print_r($commodity);
             return $this->render('SongshukrMainBundle:shop:detail.html.twig',$commodity);
         } else {
             return $this->render('SongshukrMainBundle::index.html.twig');

@@ -26,6 +26,8 @@ class Common{
 		$this->logger = $logger;
 	}
 
+	public $units = array('元/斤', '元/个');
+
 	/**
 	 * 是否管理员登录
 	 * 

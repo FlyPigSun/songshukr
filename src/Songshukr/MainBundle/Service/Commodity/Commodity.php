@@ -97,6 +97,7 @@ class Commodity extends Common
         }
         $item['ctime'] = $item['ctime']->format('Y-m-d H-i-m');
         $item['utime'] = $item['utime']->format('Y-m-d H-i-m');
+        $item['unit'] = $this->units[$item['unit']];
         $cid = $item['cid'];
         $labels = $this->__getLabelsByCid($cid);
         $item['labels'] = $labels;
