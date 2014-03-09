@@ -58,6 +58,12 @@ class MainController extends Controller
      */
     public function commodityDetailAction($cid)
     {
-        return $this->render('SongshukrMainBundle:shop:detail.html.twig');
+        $result = $this->get('common.commodity')->getCommodityByCid($cid);
+        if($result['errcode'] == 100) {
+            $commodity = $result['data'];
+            return $this->render('SongshukrMainBundle:shop:detail.html.twig',$commodity);
+        } else {
+            return $this->render('SongshukrMainBundle::index.html.twig');
+        }
     }
 }
