@@ -186,4 +186,19 @@ class ShopController extends Controller
         $result = $this->get('common.shop')->getOrderListByUid($uid);
         return new Response(json_encode($result));
     }
+
+    /**
+     * 获取一个订单的详细信息
+     * 
+     * @Route("/order/{orderNo}")
+     */
+    public function orderAction($orderNo)
+    {
+        $uid = $this->get('session')->get('user_id');
+        if(!$uid) {
+            return $this->redirect('/login?url=_order_'.$orderNo);
+        }
+        $result = $this->get('common.shop')->getOrderByOrderNo($orderNo);
+        return new Response(json_encode($result));
+    }
 }
