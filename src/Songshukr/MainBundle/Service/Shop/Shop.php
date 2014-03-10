@@ -135,12 +135,11 @@ class Shop extends Common
      */
     public function cancelOrder($uid, $orderNo)
     {
-        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
+        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
         if(!$o) {
             return array('errcode'=>111, 'data'=>array());
-        }else{
-            $o->setStatus(-1)->setUtime(new \DateTime);
         }
+        $o->setStatus(-1)->setUtime(new \DateTime);
         $this->em->flush();
         return array('errcode'=>100, 'data'=>array());
     }
@@ -214,32 +213,37 @@ class Shop extends Common
         return array('errcode'=>100, 'data'=>$result);
     }
 
+    /**
+     * 根据orderNo获取订单
+     * 
+     * @param int $uid
+     * @param string $orderNo
+     * @author wanghaojie<haojie0429@126.com>
+     * @since 2014-3-10
+     */
     public function getOrderByOrderNo($uid, $orderNo)
     {
-        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('uid'=>$uid));
-        $result = array();
-        foreach($os as $o) {
-            $ocs = $this->em->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$o->getOrderNo()));
-            $items = array();
-            foreach($ocs as $oc) {
-                $items[] = array(
-                        'cid'=>$oc->getCid(),
-                        'name'=>$oc->getName(),
-                        'number'=>$oc->getNumber(),
-                        'price'=>$oc->getPrice(),
-                        'ctime'=>$oc->getCtime()->format('Y-m-d H:i:s'),
-                    );
-            }
-            $result[] = array(
-                    'orderNo'=>$o->getOrderNo(),
-                    'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
-                    'status'=>$this->orderStatus[$o->getStatus()],
-                    'commodities'=>$items,
-                    'username'=>$o->getName(),
-                    'cellphone'=>$o->getCellphone(),
-                    'address'=>$o->getAddress(),
+        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('uid'=>$uid, 'orderNo'=>$orderNo));
+        $ocs = $this->em->getRepository('SongshukrMainBundle:OrderCommodity')->findBy(array('orderNo'=>$orderNo));
+        $items = array();
+        foreach($ocs as $oc) {
+            $items[] = array(
+                    'cid'=>$oc->getCid(),
+                    'name'=>$oc->getName(),
+                    'number'=>$oc->getNumber(),
+                    'price'=>$oc->getPrice(),
+                    'ctime'=>$oc->getCtime()->format('Y-m-d H:i:s'),
                 );
         }
+        $result = array(
+                'orderNo'=>$o->getOrderNo(),
+                'ctime'=>$o->getCtime()->format('Y-m-d H:i:s'),
+                'status'=>$this->orderStatus[$o->getStatus()],
+                'commodities'=>$items,
+                'username'=>$o->getName(),
+                'cellphone'=>$o->getCellphone(),
+                'address'=>$o->getAddress(),
+            );
         return array('errcode'=>100, 'data'=>$result);
     }
 }

@@ -198,7 +198,7 @@ class ShopController extends Controller
         if(!$uid) {
             return $this->redirect('/login?url=_order_'.$orderNo);
         }
-        $result = $this->get('common.shop')->getOrderByOrderNo($orderNo);
+        $result = $this->get('common.shop')->getOrderByOrderNo($uid, $orderNo);
         return new Response(json_encode($result));
     }
 }
