@@ -4,6 +4,9 @@ body{
 	text-align: center;
 	font-family: Arial,"MS Trebuchet",sans-serif;
 }
+a{
+	text-decoration: none;
+}
 .songshukr-header{
 	top: 0px;
 	height: 40px;

@@ -89,7 +89,7 @@
         });
 	};
 	function removeProduction(){
-		if(confirm("确定从购物车中删除此商品")){
+		if(confirm("确定从购物车中删除此商品？")){
     		$(this).parent().remove();
     		var cid = $(this).siblings('.songshukr-production-cid').html();
     		$.ajax({
@@ -107,7 +107,7 @@
                 	res = $.parseJSON(res);
 	            }
 	        });
-   		}
+   		};
    		return false;
 	};
 	function bindInput(){
