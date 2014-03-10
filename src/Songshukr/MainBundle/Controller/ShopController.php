@@ -181,7 +181,7 @@ class ShopController extends Controller
     {
         $uid = $this->get('session')->get('user_id');
         if(!$uid) {
-            return $this->redirect('/login?url=_order_user');
+            return $this->redirect('/login?url=_order_mine');
         }
         $result = $this->get('common.shop')->getOrderListByUid($uid);
         return new Response(json_encode($result));

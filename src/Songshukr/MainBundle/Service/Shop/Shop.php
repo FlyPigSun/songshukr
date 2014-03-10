@@ -135,7 +135,7 @@ class Shop extends Common
      */
     public function cancelOrder($uid, $orderNo)
     {
-        $os = $this->em->getRepository('SongshukrMainBundle:Orders')->findBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
+        $o = $this->em->getRepository('SongshukrMainBundle:Orders')->findOneBy(array('orderNo'=>$orderNo, 'uid'=>$uid));
         if(!$o) {
             return array('errcode'=>111, 'data'=>array());
         }

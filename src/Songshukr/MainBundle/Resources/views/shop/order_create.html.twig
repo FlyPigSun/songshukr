@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>松鼠客-购物车</title>
+	<title>松鼠客-订单结算</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -102,6 +102,8 @@
         $('.songshukr-order-customer-item').on('click',showCustomer);
         $('.songshukr-order-input').blur(function(){
             var content = $(this).val()
+            if(content == '')
+                return false;
             $(this).siblings('.songshukr-order-customer-tips')
                 .find('.songshukr-order-customer-content').html(content);
             $(this).find('.songshukr-order-input').hide();
@@ -138,6 +140,13 @@
     function orderSubmit(){
         var name = $('.songshukr-order-customer-content:eq(0)').html();
         var cellphone = $('.songshukr-order-customer-content:eq(1)').html();
+        if(/^\d{11}$/.test(cellphone)==false){
+            cellphone = $('.songshukr-order-customer-content:eq(1)').find('a').html();
+            if(/^\d{11}$/.test(cellphone)==false){
+                alert('手机号输入错误');
+                return false;
+            }
+        }
         var address = $('.songshukr-order-customer-content:eq(2)').html();
         $.ajax({
             url : '/order/create',

@@ -77,7 +77,7 @@ class MainController extends Controller
         $session = $this->get('session');
         $uid = $session->get('user_id');
         if(!$uid) {
-            return $this->redirect('/login?url=_order');
+            return $this->redirect('/login?url=_order_create');
         }
         $cart = json_decode($session->get('cart'));
         if(count((array)$cart) == 0) {
@@ -96,6 +96,32 @@ class MainController extends Controller
      */
     public function orderMineAction()
     {
+        $session = $this->get('session');
+        $uid = $session->get('user_id');
+        if(!$uid) {
+            return $this->redirect('/login?url=_order_mine');
+        }
         return $this->render('SongshukrMainBundle:account:history_order.html.twig');
+    }
+
+    /**
+     * 单个订单詳情頁面
+     * 
+     * @Route("/order/mine/detail/{orderNo}", name="_order_mine_detail")
+     */
+    public function orderMineDetail($orderNo)
+    {
+        $session = $this->get('session');
+        $uid = $session->get('user_id');
+        if(!$uid) {
+            return $this->redirect('/login?url=_order_mine');
+        }
+        $result = $this->get('common.shop')->getOrderByOrderNo($uid, $orderNo);
+        if($result['errcode'] == 100) {
+            $commodity = $result['data'];
+            return $this->render('SongshukrMainBundle:account:order_detail.html.twig',$commodity);
+        } else {
+            return $this->render('SongshukrMainBundle::index.html.twig');
+        }
     }
 }

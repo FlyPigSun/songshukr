@@ -45,7 +45,7 @@
             return false;
         }
         password = $.md5(password);
-        if(phoneNumber == ''||/^\d{11}$/.test(phoneNumber)==false){
+        if(/^\d{11}$/.test(phoneNumber)==false){
             alert('手机号输入错误');
             return false;
         }else{
@@ -64,8 +64,10 @@
                     var res = responseText;
                     res = $.parseJSON(res);
                     if(res.errcode == 100){
-                        if(url == '_order'){
+                        if(url == '_order_create'){
                             window.location.href='/order'
+                        }else if(url == '_order_mine'){
+                            window.location.href='/order/mine'
                         }else{
                             window.location.href='/index';
                         }

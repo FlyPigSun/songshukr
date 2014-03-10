@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>松鼠客-我的订单</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/mustache.js') }}"></script>
+    <script src="{{ asset('/bundles/songshukrmain/js/base.js') }}"></script>
+    <link href="{{ asset('/bundles/songshukrmain/css/base.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+        .songshukr-container{
+            text-align: left;
+        }
+        .songshukr-order-detail-tipes{
+            margin: 10px 0px;
+        }
+        .songshukr-order-cancle-btn{
+            color: #CC6666;
+            padding-left: 50px;
+            float: right;
+        }
+        .songshukr-order-customer{
+            position: relative;
+            text-align: left;
+            padding: 10px;
+        }
+        .songshukr-order-customer-item{
+            margin:6px 0px;
+        }
+        .songshukr-order-customer-tips{
+            line-height: 34px;
+        }
+    </style>
+</head>
+<body>
+    <div class="songshukr-header">
+        <a class="songshukr-header-btn-left songshukr-main-dark" href="/order/mine">我的订单</a>
+        <div class="songshukr-header-title">
+            订单详情
+        </div>
+    </div>
+    <div class="songshukr-container">
+        <div class="songshukr-order-detail-tipes">订单状态：
+            {{ status }}
+            {% if status == '已下单' %}
+                <div class="songshukr-order-cancle-btn">取消</div>
+            {% elseif status == '已确认' %}
+                <div class="songshukr-order-cancle-btn">取消</div>
+            {% endif %}
+        </div>
+        <div class="songshukr-order-detail-tipes">商品信息：</div>
+        <div class="songshukr-order-production-list">
+        
+        </div>
+        <div class="songshukr-order-detail-tipes">订单信息：</div>
+        <div class="songshukr-order-customer">
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">订单编号：
+                    <span class="songshukr-order-customer-content orderNo">{{ orderNo }}</span>
+                </span>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">创建时间：
+                    <span class="songshukr-order-customer-content">{{ ctime }}</span>
+                </span>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">姓名：
+                    <span class="songshukr-order-customer-content">{{ username }}</span>
+                </span>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">电话：
+                    <span class="songshukr-order-customer-content">{{ cellphone }}</span>
+                </span>
+            </div>
+            <div class="songshukr-order-customer-item">
+                <span class="songshukr-order-customer-tips">地址：
+                    <span class="songshukr-order-customer-content">{{ address }}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+<script id="songshukr-order-item-template" type="text/html">
+    <div class="songshukr-production-item">
+        <div class="songshukr-production-cid songshukr-hide">{{ '{{' }} cid {{ '}}' }}</div>
+        <img class="songshukr-production-pic"/>
+        <div style="float:left;">
+            <div class="songshukr-production-name">
+                {{ '{{' }} name {{ '}}' }}
+            </div>
+            <div class="songshukr-production-price">
+                <span class="songshukr-production-original-price">
+                    {{ '{{' }} oprice {{ '}}' }}元/斤
+                </span>
+                    {{ '{{' }} price {{ '}}' }}元/斤
+            </div>
+        </div>
+        <div class="songshukr-production-numarea">
+            <span style="line-height: 30px;">数量：</span>
+            <span>{{ '{{' }} number {{ '}}' }}</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+<script>
+    $(document).ready(function(){
+        $('.songshukr-order-cancle-btn').on('click',cancleOrder);
+        getOrderDetail();
+    });
+    function getOrderDetail(){
+        var orderNo = $('.orderNo').html();
+        $.ajax({
+            url : '/order/'+orderNo,
+            type : 'post',
+            headers:{
+                'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+            },
+            success : function(responseText){
+                var res = responseText;
+                res = $.parseJSON(res);
+                var data = res.data.commodities;
+                $.each(data,function(key,item){
+                    var tpl = $('#songshukr-order-item-template').html();
+                    var htmlStr = Mustache.to_html(tpl, item).replace(/^\s*/mg, '');
+                    $('.songshukr-order-production-list').append(htmlStr);
+                });
+            }
+        });
+    };
+    function cancleOrder(){
+        var orderNo = $('.orderNo').html();
+        if(confirm("确定要取消该订单么？")){
+            $.ajax({
+                url : '/order/cancel',
+                type : 'post',
+                data : {
+                    orderNo : orderNo
+                },
+                headers:{
+                    'CONTENT-TYPE': 'application/x-www-form-urlencoded'
+                },
+                success : function(responseText){
+                    var res = responseText;
+                    res = $.parseJSON(res);
+                    if(res.errcode == 100){
+                        alert('订单取消成功');
+                        window.location.reload();
+                    }else{
+                        alert('订单取消失败');
+                    }
+                }
+            });
+        }
+        return false;
+    }
+</script>
